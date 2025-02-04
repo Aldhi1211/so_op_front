@@ -253,12 +253,6 @@ const HomePage = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
-    // Fungsi untuk toggle dropdown saat nama diklik
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-    };
-
-    // Menutup dropdown jika klik di luar elemen dropdown
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -271,6 +265,20 @@ const HomePage = () => {
         };
     }, []);
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
     return (
         <div>
             <nav className={isScrolled ? "putih" : ""}>
@@ -307,22 +315,30 @@ const HomePage = () => {
                             <li> <a href="#team">Team</a></li>
                             <li> <a href="#blog">Product</a></li>
                             <li> <a href="#contact">Contact</a></li>
+
                             {/* Login / User Dropdown */}
                             <li ref={dropdownRef}>
                                 {!token ? (
                                     <a href="/login">Login</a>
                                 ) : (
-                                    <div className="dropdown-container">
-                                        <span className="dropdown-toggle" onClick={toggleDropdown}>{name} ▼</span>
-                                        {isDropdownOpen && (
-                                            <ul className="dropdown-menu">
-                                                {role === "Admin" && (
-                                                    <li><a className='mt-4' href="/dashboard/overview">Dashboard</a></li>
-                                                )}
-                                                <li><button onClick={handleLogout}>Logout</button></li>
-                                            </ul>
-                                        )}
-                                    </div>
+                                    isMobile ? (
+                                        // Jika mobile, tampilkan sebagai daftar biasa
+                                        <>
+                                            {role === "Admin" && <li><a href="/dashboard/overview">Dashboard</a></li>}
+                                            <li><a onClick={handleLogout}>Logout</a></li>
+                                        </>
+                                    ) : (
+                                        // Jika desktop, gunakan dropdown
+                                        <div className="dropdown-container">
+                                            <span className="dropdown-toggle" onClick={toggleDropdown}>{name} ▼</span>
+                                            {isDropdownOpen && (
+                                                <ul className="dropdown-menu">
+                                                    {role === "Admin" && <li><a href="/dashboard/overview">Dashboard</a></li>}
+                                                    <li><button onClick={handleLogout}>Logout</button></li>
+                                                </ul>
+                                            )}
+                                        </div>
+                                    )
                                 )}
                             </li>
                         </ul>
