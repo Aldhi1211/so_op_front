@@ -75,7 +75,7 @@ const Barang = () => {
         if (token) {
             getBarang();
         } else {
-            navigate('/'); // Redirect ke login jika token tidak ada
+            navigate('/login'); // Redirect ke login jika token tidak ada
         }
     }, [page, keyword, token]);  // Menambahkan token sebagai dependensi untuk memastikan token valid sebelum melakukan getBarang
 

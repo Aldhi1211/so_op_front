@@ -65,7 +65,7 @@ const AddUser = () => {
                 text: "User berhasil ditambahkan!",
                 confirmButtonText: "OK",
             }).then(() => {
-                navigate("/"); // Redirect setelah OK diklik
+                navigate("/dashboard/users"); // Redirect setelah OK diklik
             });
 
         } catch (error) {
