@@ -1,0 +1,87 @@
+/* Register.css */
+
+/* Mengatur background halaman */
+.hero {
+    background-color: #f4f6f9;
+}
+
+/* Hero body styling */
+.hero-body {
+    padding: 50px 0;
+}
+
+/* Container styling */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: none
+}
+
+/* Box styling untuk form */
+.box {
+    background-color: white;
+    border-radius: 8px;
+    width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+/* Styling untuk field (input) */
+.field {
+    margin-bottom: 20px;
+}
+
+/* Styling label */
+.label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Styling untuk input */
+.input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Styling untuk button */
+.button {
+    padding: 12px;
+    background-color: #27ae60;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect pada button */
+.button:hover {
+    background-color: #2ecc71;
+}
+
+/* Styling untuk select dropdown */
+.select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Pesan error atau sukses */
+.has-text-centered {
+    text-align: center;
+}
+
+/* Margin untuk form */
+.mt-5 {
+    margin-top: 20px;
+}
+
+/* Styling khusus untuk error dan sukses alert */
+.swal2-popup {
+    font-size: 16px;
+}
+
