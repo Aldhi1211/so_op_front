@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './Register.css'; // Pastikan Anda mengimpor file CSS dengan benar
+import API_BASE_URL from '../config/config';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -38,7 +39,7 @@ const Register = () => {
 
         try {
             // 1. Cek apakah email sudah ada di database
-            const response = await axios.get(`http://18.141.194.160/api/search?check_email=${email}`);
+            const response = await axios.get(`${API_BASE_URL}/search?check_email=${email}`);
             if (response.data.response) {
                 Swal.fire({
                     icon: 'error',
@@ -48,7 +49,7 @@ const Register = () => {
                 return;
             }
 
-            await axios.post('http://18.141.194.160/api/users', {
+            await axios.post(`${API_BASE_URL}/users`, {
                 name: name,
                 email: email,
                 password: password,

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import './Login.css'; // Tambahkan file CSS terpisah
+import API_BASE_URL from '../config/config';
 
 const Login = ({ setIsAuthenticated }) => {
     const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ const Login = ({ setIsAuthenticated }) => {
     const Auth = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://18.141.194.160/api/login', {
+            const response = await axios.post(`${API_BASE_URL}/login`, {
                 email: email,
                 password: password,
             });

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode"
 import './Table.css'
+import API_BASE_URL from '../config/config';
 
 
 const UserList = () => {
@@ -17,7 +18,7 @@ const UserList = () => {
     // Fungsi untuk refresh token dan mendapatkan data
     const refreshToken = async () => {
         try {
-            const response = await axios.get('http://18.141.194.160/api/token');
+            const response = await axios.get(`${API_BASE_URL}/token`);
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
             setName(decoded.name)
@@ -53,7 +54,7 @@ const UserList = () => {
         // Cek jika token sudah kedaluwarsa
         if (expire * 1000 < currentDate.getTime()) {
             try {
-                const response = await axios.get('http://18.141.194.160/api/token');  // Refresh token
+                const response = await axios.get(`${API_BASE_URL}/token`);  // Refresh token
                 const newToken = response.data.accessToken;
                 config.headers.Authorization = `Bearer ${newToken}`;
                 setToken(newToken);
@@ -74,7 +75,7 @@ const UserList = () => {
 
 
     const getUsers = async () => {
-        const response = await axiosJWT.get('http://18.141.194.160/api/users', {
+        const response = await axiosJWT.get(`${API_BASE_URL}/users`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -84,7 +85,7 @@ const UserList = () => {
 
     const deleteUser = async (id) => {
         try {
-            await axios.delete(`http://18.141.194.160/api/users/${id}`);
+            await axios.delete(`${API_BASE_URL}/users/${id}`);
             getUsers();
         } catch (error) {
             console.log(error);

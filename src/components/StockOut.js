@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import './Table.css';
 import ReactPaginate from "react-paginate";
+import API_BASE_URL from '../config/config';
 
 const StockOut = () => {
     const [stockouts, setStockout] = useState([]);
@@ -26,7 +27,7 @@ const StockOut = () => {
 
     const refreshToken = async () => {
         try {
-            const response = await axios.get('http://18.141.194.160/api/token');
+            const response = await axios.get(`${API_BASE_URL}/token`);
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
             setName(decoded.name);
@@ -64,7 +65,7 @@ const StockOut = () => {
     axiosJWT.interceptors.request.use(async (config) => {
         const currentDate = new Date();
         if (expire * 1000 < currentDate.getTime()) {
-            const response = await axios.get('http://18.141.194.160/api/token');
+            const response = await axios.get(`${API_BASE_URL}/token`);
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
@@ -77,7 +78,7 @@ const StockOut = () => {
     });
 
     const getStock = async () => {
-        const response = await axiosJWT.get(`http://18.141.194.160/api/stockout?search_query=${keyword}&page=${page}&limit=${limit}`, {
+        const response = await axiosJWT.get(`${API_BASE_URL}/stockout?search_query=${keyword}&page=${page}&limit=${limit}`, {
             // headers: {
             //     Authorization: `Bearer ${token}`
             // }

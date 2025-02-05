@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom';
+import API_BASE_URL from '../config/config';
 
 const EditUser = () => {
     const [name, setName] = useState("");
@@ -16,7 +17,7 @@ const EditUser = () => {
     const updateUser = async (e) => {
         e.preventDefault();
         try {
-            await axios.patch(`http://18.141.194.160/api/users/${id}`, {
+            await axios.patch(`${API_BASE_URL}/users/${id}`, {
                 name,
                 gender,
                 role
@@ -28,7 +29,7 @@ const EditUser = () => {
     }
 
     const getUserById = async () => {
-        const response = await axios.get(`http://18.141.194.160/api/users/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/users/${id}`);
         setName(response.data.name);
         setGender(response.data.gender);
         setRole(response.data.role);

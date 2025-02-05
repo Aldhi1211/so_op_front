@@ -9,6 +9,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useRef, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import API_BASE_URL from '../config/config';
 
 
 const HomePage = () => {
@@ -147,7 +148,7 @@ const HomePage = () => {
     useEffect(() => {
         const fetchGallery = async () => {
             try {
-                const response = await axios.get("http://18.141.194.160/api/gallery", {
+                const response = await axios.get(`${API_BASE_URL}/gallery`, {
                     params: {
                         page: 0,  // halaman pertama
                         limit: 10, // jumlah per halaman
@@ -169,7 +170,7 @@ const HomePage = () => {
 
 
     const getGallery = async () => {
-        const response = await axiosJWT.get(`http://18.141.194.160/api/gallery?search_query=${keyword}&page=${page}&limit=${limit}`,
+        const response = await axiosJWT.get(`${API_BASE_URL}/gallery?search_query=${keyword}&page=${page}&limit=${limit}`,
             {
                 // headers: {
                 //     Authorization: `Bearer ${token}`
@@ -182,7 +183,7 @@ const HomePage = () => {
     };
 
     const getTeams = async () => {
-        const response = await axiosJWT.get(`http://18.141.194.160/api/teams?search_query=&page=0&limit=3`,
+        const response = await axiosJWT.get(`${API_BASE_URL}/teams?search_query=&page=0&limit=3`,
             {
                 // headers: {
                 //     Authorization: `Bearer ${token}`
@@ -199,7 +200,7 @@ const HomePage = () => {
     }, [page, keyword]);
 
     const getProduct = async () => {
-        const response = await axiosJWT.get(`http://18.141.194.160/api/product?search_query=${keyword}&page=${page}&limit=1`,
+        const response = await axiosJWT.get(`${API_BASE_URL}/product?search_query=${keyword}&page=${page}&limit=1`,
             {
                 // headers: {
                 //     Authorization: `Bearer ${token}`
@@ -239,7 +240,7 @@ const HomePage = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.delete("http://18.141.194.160/api/logout");
+            await axios.delete(`${API_BASE_URL}/logout`);
             localStorage.removeItem("accessToken");
             setToken(null);
             setName(null);

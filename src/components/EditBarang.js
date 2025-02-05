@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./Product.css";
+import API_BASE_URL from "../config/config";
 
 const EditBarang = () => {
     const { id } = useParams(); // Mengambil parameter id produk dari URL
@@ -19,7 +20,7 @@ const EditBarang = () => {
     useEffect(() => {
         const fetchBarang = async () => {
             try {
-                const response = await axios.get(`http://18.141.194.160/api/barang/${id}`);
+                const response = await axios.get(`${API_BASE_URL}/barang/${id}`);
                 const barang = response.data;
 
                 setBarangData(barang);
@@ -43,7 +44,7 @@ const EditBarang = () => {
         e.preventDefault();
         try {
 
-            await axios.patch(`http://18.141.194.160/api/barang/${id}`, formData);
+            await axios.patch(`${API_BASE_URL}/barang/${id}`, formData);
 
             alert("Barang berhasil diperbarui!");
             navigate("/dashboard/barang", {

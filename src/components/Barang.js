@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import './Table.css';
 import ReactPaginate from "react-paginate";
 import Swal from 'sweetalert2';
+import API_BASE_URL from '../config/config';
 
 
 const Barang = () => {
@@ -28,7 +29,7 @@ const Barang = () => {
 
     const refreshToken = async () => {
         try {
-            const response = await axios.get('http://18.141.194.160/api/token');
+            const response = await axios.get(`${API_BASE_URL}/token`);
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
             setName(decoded.name);
@@ -54,7 +55,7 @@ const Barang = () => {
         axiosJWT.interceptors.request.use(async (config) => {
             const currentDate = new Date();
             if (expire * 1000 < currentDate.getTime()) {
-                const response = await axios.get('http://18.141.194.160/api/token');
+                const response = await axios.get(`${API_BASE_URL}/token`);
                 setToken(response.data.accessToken);
                 const decoded = jwtDecode(response.data.accessToken);
                 setName(decoded.name);
@@ -90,7 +91,7 @@ const Barang = () => {
 
 
     const getBarang = async () => {
-        const response = await axiosJWT.get(`http://18.141.194.160/api/barang?search_query=${keyword}&page=${page}&limit=${limit}`, {
+        const response = await axiosJWT.get(`${API_BASE_URL}/barang?search_query=${keyword}&page=${page}&limit=${limit}`, {
             // headers: {
             //     Authorization: `Bearer ${token}`
             // }
@@ -104,7 +105,7 @@ const Barang = () => {
 
     const deleteBarang = async (id) => {
         try {
-            await axios.delete(`http://18.141.194.160/api/barang/${id}`);
+            await axios.delete(`${API_BASE_URL}/barang/${id}`);
             getBarang();
         } catch (error) {
             console.log(error);

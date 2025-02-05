@@ -9,6 +9,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import React, { useRef, useEffect, useState } from "react";
+import API_BASE_URL from '../config/config';
 
 
 const ProductPage = () => {
@@ -123,7 +124,7 @@ const ProductPage = () => {
 
 
     const getProduct = async () => {
-        const response = await axiosJWT.get(`http://18.141.194.160/api/product?search_query=${keyword}&page=${page}&limit=100`,
+        const response = await axiosJWT.get(`${API_BASE_URL}/product?search_query=${keyword}&page=${page}&limit=100`,
             {
                 // headers: {
                 //     Authorization: `Bearer ${token}`
@@ -163,7 +164,7 @@ const ProductPage = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.delete("http://18.141.194.160/api/logout");
+            await axios.delete(`${API_BASE_URL}/logout`);
             localStorage.removeItem("accessToken");
             setToken(null);
             setName(null);

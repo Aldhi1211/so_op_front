@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import './Product.css';
 import { jwtDecode } from 'jwt-decode';
+import API_BASE_URL from '../config/config';
 
 
 
@@ -26,7 +27,7 @@ const AddProduct = () => {
     useEffect(() => {
         const getToken = async () => {
             try {
-                const response = await axios.get('http://18.141.194.160/api/token');
+                const response = await axios.get(`${API_BASE_URL}/token`);
                 setToken(response.data.accessToken);
             } catch (error) {
                 console.error('Gagal mendapatkan token:', error.message);
@@ -36,7 +37,7 @@ const AddProduct = () => {
 
         const fetchBarang = async () => {
             try {
-                const response = await axios.get('http://18.141.194.160/api/barang');
+                const response = await axios.get(`${API_BASE_URL}/barang`);
                 setBarangList(response.data);
             } catch (error) {
                 console.error('Error fetching barang:', error.message);
@@ -94,7 +95,7 @@ const AddProduct = () => {
             }
 
             // Step 1: Tambahkan product
-            const productResponse = await axios.post("http://18.141.194.160/api/product", data, {
+            const productResponse = await axios.post(`${API_BASE_URL}/product`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
@@ -105,14 +106,14 @@ const AddProduct = () => {
                 id_product: idProduct,
                 spesification: spec, // Menyimpan setiap spesifikasi dengan id_product yang sama
             }));
-            await axios.post("http://18.141.194.160/api/specs", specData);  // Kirim array data spesifikasi sekaligus
+            await axios.post(`${API_BASE_URL}/specs`, specData);  // Kirim array data spesifikasi sekaligus
 
             // Step 3: Tambahkan customs (Looping untuk setiap item custom)
             const customData = formData.customs.map((customm) => ({
                 id_product: idProduct,
                 custom: customm, // Menyimpan setiap custom dengan id_product yang sama
             }));
-            await axios.post("http://18.141.194.160/api/custom", customData);  // Kirim array data spesifikasi sekaligus
+            await axios.post(`${API_BASE_URL}/custom`, customData);  // Kirim array data spesifikasi sekaligus
 
 
             alert("Product, spesification, dan custom berhasil ditambahkan!");

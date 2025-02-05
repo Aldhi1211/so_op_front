@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import './Product.css';
 import { jwtDecode } from 'jwt-decode';
+import API_BASE_URL from '../config/config';
 
 
 
@@ -25,7 +26,7 @@ const AddTeams = () => {
     useEffect(() => {
         const getToken = async () => {
             try {
-                const response = await axios.get('http://18.141.194.160/api/token');
+                const response = await axios.get(`${API_BASE_URL}/token`);
                 setToken(response.data.accessToken);
             } catch (error) {
                 console.error('Gagal mendapatkan token:', error.message);
@@ -67,7 +68,7 @@ const AddTeams = () => {
             }
 
             // Step 1: Tambahkan product
-            const teamsResponse = await axios.post("http://18.141.194.160/api/teams", data, {
+            const teamsResponse = await axios.post(`${API_BASE_URL}/teams`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./Product.css";
+import API_BASE_URL from "../config/config";
 
 const EditTeams = () => {
     const { id } = useParams(); // Mengambil parameter id produk dari URL
@@ -25,7 +26,7 @@ const EditTeams = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const response = await axios.get(`http://18.141.194.160/api/teams/${id}`);
+                const response = await axios.get(`${API_BASE_URL}/teams/${id}`);
                 const teams = response.data;
 
                 setTeamsData(teams);
@@ -85,7 +86,7 @@ const EditTeams = () => {
                 data.append("foto", teamsData.foto); // Menggunakan nilai gambar yang ada
             }
 
-            await axios.patch(`http://18.141.194.160/api/teams/${id}`, data, {
+            await axios.patch(`${API_BASE_URL}/teams/${id}`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 

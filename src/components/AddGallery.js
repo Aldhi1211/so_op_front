@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import './Product.css';
 import { jwtDecode } from 'jwt-decode';
+import API_BASE_URL from '../config/config';
 
 
 
@@ -20,7 +21,7 @@ const AddGallery = () => {
     useEffect(() => {
         const getToken = async () => {
             try {
-                const response = await axios.get('http://18.141.194.160/api/token');
+                const response = await axios.get(`${API_BASE_URL}/token`);
                 setToken(response.data.accessToken);
             } catch (error) {
                 console.error('Gagal mendapatkan token:', error.message);
@@ -57,7 +58,7 @@ const AddGallery = () => {
             }
 
             // Step 1: Tambahkan gallery
-            const galleryResponse = await axios.post("http://18.141.194.160/api/gallery", data, {
+            const galleryResponse = await axios.post(`${API_BASE_URL}/gallery`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 

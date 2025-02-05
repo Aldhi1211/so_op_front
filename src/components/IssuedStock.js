@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import API_BASE_URL from '../config/config';
 
 
 
@@ -21,7 +22,7 @@ const IssuedStock = () => {
     useEffect(() => {
         const getToken = async () => {
             try {
-                const response = await axios.get('http://18.141.194.160/api/token');
+                const response = await axios.get(`${API_BASE_URL}/token`);
                 setToken(response.data.accessToken);
             } catch (error) {
                 console.error('Gagal mendapatkan token:', error.message);
@@ -31,7 +32,7 @@ const IssuedStock = () => {
 
         const fetchBarang = async () => {
             try {
-                const response = await axios.get('http://18.141.194.160/api/barang');
+                const response = await axios.get(`${API_BASE_URL}/barang`);
                 setBarangList(response.data.response);
             } catch (error) {
                 console.error('Error fetching barang:', error.message);
@@ -62,7 +63,7 @@ const IssuedStock = () => {
 
 
         try {
-            const response = await axios.post('http://18.141.194.160/api/issuedstock', formData);
+            const response = await axios.post(`${API_BASE_URL}/issuedstock`, formData);
 
             // Data untuk API kedua
             const stockOutData = {
@@ -74,7 +75,7 @@ const IssuedStock = () => {
             };
 
             // Panggil API kedua ke /stockin
-            const stockOutResponse = await axios.post('http://18.141.194.160/api/stockout', stockOutData);
+            const stockOutResponse = await axios.post(`${API_BASE_URL}/stockout`, stockOutData);
 
             setFormData({ id_barang: '', quantity: '', satuan: '' });
             // Navigasi dengan pesan keberhasilan

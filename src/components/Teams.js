@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import './Table.css';
 import ReactPaginate from "react-paginate";
+import API_BASE_URL from '../config/config';
 
 const Teams = () => {
     const [teams, setTeam] = useState([]);
@@ -26,7 +27,7 @@ const Teams = () => {
 
     const refreshToken = async () => {
         try {
-            const response = await axios.get('http://18.141.194.160/api/token');
+            const response = await axios.get(`${API_BASE_URL}/token`);
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
             setName(decoded.name);
@@ -65,7 +66,7 @@ const Teams = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const response = await axios.get("http://18.141.194.160/api/teams", {
+                const response = await axios.get(`${API_BASE_URL}/teams`, {
                     params: {
                         page: 0,  // halaman pertama
                         limit: 10, // jumlah per halaman
@@ -87,7 +88,7 @@ const Teams = () => {
     axiosJWT.interceptors.request.use(async (config) => {
         const currentDate = new Date();
         if (expire * 1000 < currentDate.getTime()) {
-            const response = await axios.get('http://18.141.194.160/api/token');
+            const response = await axios.get(`${API_BASE_URL}/token`);
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
@@ -102,7 +103,7 @@ const Teams = () => {
     });
 
     const getTeams = async () => {
-        const response = await axiosJWT.get(`http://18.141.194.160/api/teams?search_query=${keyword}&page=${page}&limit=${limit}`,
+        const response = await axiosJWT.get(`${API_BASE_URL}/teams?search_query=${keyword}&page=${page}&limit=${limit}`,
             {
                 // headers: {
                 //     Authorization: `Bearer ${token}`
@@ -143,7 +144,7 @@ const Teams = () => {
 
     const deleteTeam = async (id) => {
         try {
-            await axios.delete(`http://18.141.194.160/api/teams/${id}`);
+            await axios.delete(`${API_BASE_URL}/teams/${id}`);
             getTeams();
         } catch (error) {
             console.log(error);

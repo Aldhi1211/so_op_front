@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./Product.css";
+import API_BASE_URL from "../config/config";
 
 const EditProduct = () => {
     const { id } = useParams(); // Mengambil parameter id produk dari URL
@@ -27,7 +28,7 @@ const EditProduct = () => {
             try {
                 const response = await axios.get(`http://18.141.194.160/product/${id}`);
                 const response1 = await axios.get(`http://18.141.194.160/specs/${id}`);
-                const response2 = await axios.get(`http://18.141.194.160/api/custom/${id}`);
+                const response2 = await axios.get(`${API_BASE_URL}/custom/${id}`);
                 const product = response.data;
 
                 setProductData(product);
@@ -131,7 +132,7 @@ const EditProduct = () => {
             if (customsData && customsData.length > 0) {
                 for (const custom of customsData) {
                     const { id, custom: customValue } = custom; // Ambil ID dan custom value
-                    await axios.patch(`http://18.141.194.160/api/custom/${id}`, custom); // Kirim data ke server
+                    await axios.patch(`${API_BASE_URL}/custom/${id}`, custom); // Kirim data ke server
                 }
             }
 
