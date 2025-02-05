@@ -19,7 +19,7 @@ const EditBarang = () => {
     useEffect(() => {
         const fetchBarang = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/barang/${id}`);
+                const response = await axios.get(`http://18.141.194.160/api/barang/${id}`);
                 const barang = response.data;
 
                 setBarangData(barang);
@@ -43,7 +43,7 @@ const EditBarang = () => {
         e.preventDefault();
         try {
 
-            await axios.patch(`http://localhost:5000/api/barang/${id}`, formData);
+            await axios.patch(`http://18.141.194.160/api/barang/${id}`, formData);
 
             alert("Barang berhasil diperbarui!");
             navigate("/dashboard/barang", {

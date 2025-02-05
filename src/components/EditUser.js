@@ -16,7 +16,7 @@ const EditUser = () => {
     const updateUser = async (e) => {
         e.preventDefault();
         try {
-            await axios.patch(`http://localhost:5000/api/users/${id}`, {
+            await axios.patch(`http://18.141.194.160/api/users/${id}`, {
                 name,
                 gender,
                 role
@@ -28,7 +28,7 @@ const EditUser = () => {
     }
 
     const getUserById = async () => {
-        const response = await axios.get(`http://localhost:5000/api/users/${id}`);
+        const response = await axios.get(`http://18.141.194.160/api/users/${id}`);
         setName(response.data.name);
         setGender(response.data.gender);
         setRole(response.data.role);

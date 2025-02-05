@@ -26,7 +26,7 @@ const Teams = () => {
 
     const refreshToken = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/token');
+            const response = await axios.get('http://18.141.194.160/api/token');
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
             setName(decoded.name);
@@ -65,7 +65,7 @@ const Teams = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/teams", {
+                const response = await axios.get("http://18.141.194.160/api/teams", {
                     params: {
                         page: 0,  // halaman pertama
                         limit: 10, // jumlah per halaman
@@ -87,7 +87,7 @@ const Teams = () => {
     axiosJWT.interceptors.request.use(async (config) => {
         const currentDate = new Date();
         if (expire * 1000 < currentDate.getTime()) {
-            const response = await axios.get('http://localhost:5000/api/token');
+            const response = await axios.get('http://18.141.194.160/api/token');
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
@@ -102,7 +102,7 @@ const Teams = () => {
     });
 
     const getTeams = async () => {
-        const response = await axiosJWT.get(`http://localhost:5000/api/teams?search_query=${keyword}&page=${page}&limit=${limit}`,
+        const response = await axiosJWT.get(`http://18.141.194.160/api/teams?search_query=${keyword}&page=${page}&limit=${limit}`,
             {
                 // headers: {
                 //     Authorization: `Bearer ${token}`
@@ -143,7 +143,7 @@ const Teams = () => {
 
     const deleteTeam = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/teams/${id}`);
+            await axios.delete(`http://18.141.194.160/api/teams/${id}`);
             getTeams();
         } catch (error) {
             console.log(error);

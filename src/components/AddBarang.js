@@ -19,7 +19,7 @@ const AddBarang = () => {
     useEffect(() => {
         const getToken = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/token');
+                const response = await axios.get('http://18.141.194.160/api/token');
                 setToken(response.data.accessToken);
             } catch (error) {
                 console.error('Gagal mendapatkan token:', error.message);
@@ -39,7 +39,7 @@ const AddBarang = () => {
 
         try {
             // Step 1: Tambahkan barang
-            const barangResponse = await axios.post("http://localhost:5000/api/barang", formData);
+            const barangResponse = await axios.post("http://18.141.194.160/api/barang", formData);
 
             alert("Barang berhasil ditambahkan!");
             setFormData({

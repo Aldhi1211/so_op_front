@@ -38,7 +38,7 @@ const Register = () => {
 
         try {
             // 1. Cek apakah email sudah ada di database
-            const response = await axios.get(`http://localhost:5000/api/search?check_email=${email}`);
+            const response = await axios.get(`http://18.141.194.160/api/search?check_email=${email}`);
             if (response.data.response) {
                 Swal.fire({
                     icon: 'error',
@@ -48,7 +48,7 @@ const Register = () => {
                 return;
             }
 
-            await axios.post('http://localhost:5000/api/users', {
+            await axios.post('http://18.141.194.160/api/users', {
                 name: name,
                 email: email,
                 password: password,

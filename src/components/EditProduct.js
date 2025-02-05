@@ -25,9 +25,9 @@ const EditProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/product/${id}`);
-                const response1 = await axios.get(`http://localhost:5000/specs/${id}`);
-                const response2 = await axios.get(`http://localhost:5000/api/custom/${id}`);
+                const response = await axios.get(`http://18.141.194.160/product/${id}`);
+                const response1 = await axios.get(`http://18.141.194.160/specs/${id}`);
+                const response2 = await axios.get(`http://18.141.194.160/api/custom/${id}`);
                 const product = response.data;
 
                 setProductData(product);
@@ -116,14 +116,14 @@ const EditProduct = () => {
                 data.append("images", productData.images); // Menggunakan nilai gambar yang ada
             }
 
-            await axios.patch(`http://localhost:5000/product/${id}`, data, {
+            await axios.patch(`http://18.141.194.160/product/${id}`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             // Update spesifications
             if (specsData && specsData.length > 0) {
                 for (const spec of specsData) {
                     const { id, spesification } = spec; // Ambil ID dan spesifikasi
-                    await axios.patch(`http://localhost:5000/specs/${id}`, spec); // Kirim data ke server
+                    await axios.patch(`http://18.141.194.160/specs/${id}`, spec); // Kirim data ke server
                 }
             }
 
@@ -131,7 +131,7 @@ const EditProduct = () => {
             if (customsData && customsData.length > 0) {
                 for (const custom of customsData) {
                     const { id, custom: customValue } = custom; // Ambil ID dan custom value
-                    await axios.patch(`http://localhost:5000/api/custom/${id}`, custom); // Kirim data ke server
+                    await axios.patch(`http://18.141.194.160/api/custom/${id}`, custom); // Kirim data ke server
                 }
             }
 

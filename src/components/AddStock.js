@@ -21,7 +21,7 @@ const AddStock = () => {
     useEffect(() => {
         const getToken = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/token');
+                const response = await axios.get('http://18.141.194.160/api/token');
                 setToken(response.data.accessToken);
             } catch (error) {
                 console.error('Gagal mendapatkan token:', error.message);
@@ -31,7 +31,7 @@ const AddStock = () => {
 
         const fetchBarang = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/barang?search_query=&page=0&limit=10');
+                const response = await axios.get('http://18.141.194.160/api/barang?search_query=&page=0&limit=10');
                 setBarangList(response.data.response);
             } catch (error) {
                 console.error('Error fetching barang:', error.message);
@@ -62,7 +62,7 @@ const AddStock = () => {
 
 
         try {
-            const response = await axios.post('http://localhost:5000/api/stock', formData);
+            const response = await axios.post('http://18.141.194.160/api/stock', formData);
 
             // Data untuk API kedua
             const stockInData = {
@@ -74,7 +74,7 @@ const AddStock = () => {
             };
 
             // Panggil API kedua ke /stockin
-            const stockInResponse = await axios.post('http://localhost:5000/api/stockin', stockInData);
+            const stockInResponse = await axios.post('http://18.141.194.160/api/stockin', stockInData);
 
             setFormData({ id_barang: '', quantity: '', satuan: '' });
             // Navigasi dengan pesan keberhasilan

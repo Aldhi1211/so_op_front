@@ -147,7 +147,7 @@ const HomePage = () => {
     useEffect(() => {
         const fetchGallery = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/gallery", {
+                const response = await axios.get("http://18.141.194.160/api/gallery", {
                     params: {
                         page: 0,  // halaman pertama
                         limit: 10, // jumlah per halaman
@@ -169,7 +169,7 @@ const HomePage = () => {
 
 
     const getGallery = async () => {
-        const response = await axiosJWT.get(`http://localhost:5000/api/gallery?search_query=${keyword}&page=${page}&limit=${limit}`,
+        const response = await axiosJWT.get(`http://18.141.194.160/api/gallery?search_query=${keyword}&page=${page}&limit=${limit}`,
             {
                 // headers: {
                 //     Authorization: `Bearer ${token}`
@@ -182,7 +182,7 @@ const HomePage = () => {
     };
 
     const getTeams = async () => {
-        const response = await axiosJWT.get(`http://localhost:5000/api/teams?search_query=&page=0&limit=3`,
+        const response = await axiosJWT.get(`http://18.141.194.160/api/teams?search_query=&page=0&limit=3`,
             {
                 // headers: {
                 //     Authorization: `Bearer ${token}`
@@ -199,7 +199,7 @@ const HomePage = () => {
     }, [page, keyword]);
 
     const getProduct = async () => {
-        const response = await axiosJWT.get(`http://localhost:5000/api/product?search_query=${keyword}&page=${page}&limit=1`,
+        const response = await axiosJWT.get(`http://18.141.194.160/api/product?search_query=${keyword}&page=${page}&limit=1`,
             {
                 // headers: {
                 //     Authorization: `Bearer ${token}`
@@ -239,7 +239,7 @@ const HomePage = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.delete("http://localhost:5000/api/logout");
+            await axios.delete("http://18.141.194.160/api/logout");
             localStorage.removeItem("accessToken");
             setToken(null);
             setName(null);

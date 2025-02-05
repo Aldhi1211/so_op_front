@@ -20,7 +20,7 @@ const EditGallery = () => {
     useEffect(() => {
         const fetchGallery = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/gallery/${id}`);
+                const response = await axios.get(`http://18.141.194.160/api/gallery/${id}`);
                 const gallery = response.data;
 
                 setGalleryData(gallery);
@@ -68,7 +68,7 @@ const EditGallery = () => {
                 data.append("foto", galleryData.foto); // Menggunakan nilai gambar yang ada
             }
 
-            await axios.patch(`http://localhost:5000/api/gallery/${id}`, data, {
+            await axios.patch(`http://18.141.194.160/api/gallery/${id}`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
