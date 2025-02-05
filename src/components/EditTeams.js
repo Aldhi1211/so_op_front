@@ -25,7 +25,7 @@ const EditTeams = () => {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/teams/${id}`);
+                const response = await axios.get(`http://localhost:5000/api/teams/${id}`);
                 const teams = response.data;
 
                 setTeamsData(teams);
@@ -85,7 +85,7 @@ const EditTeams = () => {
                 data.append("foto", teamsData.foto); // Menggunakan nilai gambar yang ada
             }
 
-            await axios.patch(`http://localhost:5000/teams/${id}`, data, {
+            await axios.patch(`http://localhost:5000/api/teams/${id}`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 

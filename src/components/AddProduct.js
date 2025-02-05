@@ -26,7 +26,7 @@ const AddProduct = () => {
     useEffect(() => {
         const getToken = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/token');
+                const response = await axios.get('http://localhost:5000/api/token');
                 setToken(response.data.accessToken);
             } catch (error) {
                 console.error('Gagal mendapatkan token:', error.message);
@@ -36,7 +36,7 @@ const AddProduct = () => {
 
         const fetchBarang = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/barang');
+                const response = await axios.get('http://localhost:5000/api/barang');
                 setBarangList(response.data);
             } catch (error) {
                 console.error('Error fetching barang:', error.message);
@@ -94,7 +94,7 @@ const AddProduct = () => {
             }
 
             // Step 1: Tambahkan product
-            const productResponse = await axios.post("http://localhost:5000/product", data, {
+            const productResponse = await axios.post("http://localhost:5000/api/product", data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
@@ -105,14 +105,14 @@ const AddProduct = () => {
                 id_product: idProduct,
                 spesification: spec, // Menyimpan setiap spesifikasi dengan id_product yang sama
             }));
-            await axios.post("http://localhost:5000/specs", specData);  // Kirim array data spesifikasi sekaligus
+            await axios.post("http://localhost:5000/api/specs", specData);  // Kirim array data spesifikasi sekaligus
 
             // Step 3: Tambahkan customs (Looping untuk setiap item custom)
             const customData = formData.customs.map((customm) => ({
                 id_product: idProduct,
                 custom: customm, // Menyimpan setiap custom dengan id_product yang sama
             }));
-            await axios.post("http://localhost:5000/custom", customData);  // Kirim array data spesifikasi sekaligus
+            await axios.post("http://localhost:5000/api/custom", customData);  // Kirim array data spesifikasi sekaligus
 
 
             alert("Product, spesification, dan custom berhasil ditambahkan!");

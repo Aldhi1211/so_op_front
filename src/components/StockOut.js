@@ -26,7 +26,7 @@ const StockOut = () => {
 
     const refreshToken = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/token');
+            const response = await axios.get('http://localhost:5000/api/token');
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
             setName(decoded.name);
@@ -64,7 +64,7 @@ const StockOut = () => {
     axiosJWT.interceptors.request.use(async (config) => {
         const currentDate = new Date();
         if (expire * 1000 < currentDate.getTime()) {
-            const response = await axios.get('http://localhost:5000/token');
+            const response = await axios.get('http://localhost:5000/api/token');
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
@@ -77,7 +77,7 @@ const StockOut = () => {
     });
 
     const getStock = async () => {
-        const response = await axiosJWT.get(`http://localhost:5000/stockout?search_query=${keyword}&page=${page}&limit=${limit}`, {
+        const response = await axiosJWT.get(`http://localhost:5000/api/stockout?search_query=${keyword}&page=${page}&limit=${limit}`, {
             // headers: {
             //     Authorization: `Bearer ${token}`
             // }

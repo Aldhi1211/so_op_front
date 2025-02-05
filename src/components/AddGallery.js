@@ -20,7 +20,7 @@ const AddGallery = () => {
     useEffect(() => {
         const getToken = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/token');
+                const response = await axios.get('http://localhost:5000/api/token');
                 setToken(response.data.accessToken);
             } catch (error) {
                 console.error('Gagal mendapatkan token:', error.message);
@@ -57,7 +57,7 @@ const AddGallery = () => {
             }
 
             // Step 1: Tambahkan gallery
-            const galleryResponse = await axios.post("http://localhost:5000/gallery", data, {
+            const galleryResponse = await axios.post("http://localhost:5000/api/gallery", data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 

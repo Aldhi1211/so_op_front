@@ -123,7 +123,7 @@ const ProductPage = () => {
 
 
     const getProduct = async () => {
-        const response = await axiosJWT.get(`http://localhost:5000/product?search_query=${keyword}&page=${page}&limit=100`,
+        const response = await axiosJWT.get(`http://localhost:5000/api/product?search_query=${keyword}&page=${page}&limit=100`,
             {
                 // headers: {
                 //     Authorization: `Bearer ${token}`
@@ -163,7 +163,7 @@ const ProductPage = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.delete("http://localhost:5000/logout");
+            await axios.delete("http://localhost:5000/api/logout");
             localStorage.removeItem("accessToken");
             setToken(null);
             setName(null);

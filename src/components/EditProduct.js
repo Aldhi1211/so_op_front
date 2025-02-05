@@ -27,7 +27,7 @@ const EditProduct = () => {
             try {
                 const response = await axios.get(`http://localhost:5000/product/${id}`);
                 const response1 = await axios.get(`http://localhost:5000/specs/${id}`);
-                const response2 = await axios.get(`http://localhost:5000/custom/${id}`);
+                const response2 = await axios.get(`http://localhost:5000/api/custom/${id}`);
                 const product = response.data;
 
                 setProductData(product);
@@ -131,7 +131,7 @@ const EditProduct = () => {
             if (customsData && customsData.length > 0) {
                 for (const custom of customsData) {
                     const { id, custom: customValue } = custom; // Ambil ID dan custom value
-                    await axios.patch(`http://localhost:5000/custom/${id}`, custom); // Kirim data ke server
+                    await axios.patch(`http://localhost:5000/api/custom/${id}`, custom); // Kirim data ke server
                 }
             }
 

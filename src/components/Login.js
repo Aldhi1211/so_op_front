@@ -13,7 +13,7 @@ const Login = ({ setIsAuthenticated }) => {
     const Auth = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/login', {
+            const response = await axios.post('http://localhost:5000/api/login', {
                 email: email,
                 password: password,
             });

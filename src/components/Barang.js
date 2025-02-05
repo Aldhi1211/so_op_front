@@ -28,7 +28,7 @@ const Barang = () => {
 
     const refreshToken = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/token');
+            const response = await axios.get('http://localhost:5000/api/token');
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
             setName(decoded.name);
@@ -54,7 +54,7 @@ const Barang = () => {
         axiosJWT.interceptors.request.use(async (config) => {
             const currentDate = new Date();
             if (expire * 1000 < currentDate.getTime()) {
-                const response = await axios.get('http://localhost:5000/token');
+                const response = await axios.get('http://localhost:5000/api/token');
                 setToken(response.data.accessToken);
                 const decoded = jwtDecode(response.data.accessToken);
                 setName(decoded.name);
@@ -90,7 +90,7 @@ const Barang = () => {
 
 
     const getBarang = async () => {
-        const response = await axiosJWT.get(`http://localhost:5000/barang?search_query=${keyword}&page=${page}&limit=${limit}`, {
+        const response = await axiosJWT.get(`http://localhost:5000/api/barang?search_query=${keyword}&page=${page}&limit=${limit}`, {
             // headers: {
             //     Authorization: `Bearer ${token}`
             // }
@@ -104,7 +104,7 @@ const Barang = () => {
 
     const deleteBarang = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/barang/${id}`);
+            await axios.delete(`http://localhost:5000/api/barang/${id}`);
             getBarang();
         } catch (error) {
             console.log(error);
