@@ -117,14 +117,14 @@ const EditProduct = () => {
                 data.append("images", productData.images); // Menggunakan nilai gambar yang ada
             }
 
-            await axios.patch(`${API_BASE_URL}product/${id}`, data, {
+            await axios.patch(`${API_BASE_URL}/product/${id}`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             // Update spesifications
             if (specsData && specsData.length > 0) {
                 for (const spec of specsData) {
                     const { id, spesification } = spec; // Ambil ID dan spesifikasi
-                    await axios.patch(`${API_BASE_URL}specs/${id}`, spec); // Kirim data ke server
+                    await axios.patch(`${API_BASE_URL}/specs/${id}`, spec); // Kirim data ke server
                 }
             }
 
