@@ -184,6 +184,7 @@ header .intro h3 {
     font-size: 50px;
     margin-bottom: 25px;
     padding: 0px;
+    top: 50%;
 }
  
 .tombol {
@@ -399,8 +400,11 @@ section#gallery .container .buttons span:active {
 } 
 
 .content {
+    margin: 0;
+    padding: 30px;
+    height: auto;
+    min-height: 100%; /* Pastikan tidak ada spasi berlebih */
     position: relative;
-    padding: 40px;
     max-width: 600px;
     transition: 0.25s;
     transition-delay: 0s;
@@ -419,6 +423,13 @@ section#gallery .container .slider .slides:nth-child(2) .content {
 .content h2 {
     font-size: 3em !important;
     color: #fff !important;
+    margin: 0; 
+    background-color: black;
+    opacity: 0.8;
+    padding: 10px;
+    line-height: 1.2;
+    border-radius: 15px;
+    border: 2px solid white; /* Border putih */ 
 }
 
 section.quote {
@@ -502,8 +513,6 @@ section.quote .layar-dalam p {
 .blog .area .text article{
     padding: 40px;
 }
-
-
 
 .blog .area .text article h4{
     margin-bottom: 50px;
@@ -763,13 +772,21 @@ footer span {
 
     section#gallery .container{
         position: relative;
-
         height: 700px;
     }
 
     section#gallery .container .slider {
         position: absolute;
         inset: 40px 40px 200px 40px;
+    }
+
+    .content {
+        margin: auto; /* Untuk pemusatan horizontal */
+    }
+    
+
+    .content h2 {
+        font-size: 2em !important;
     }
 
     section#gallery .container .slider .slides {
@@ -786,6 +803,7 @@ footer span {
         bottom: 0px;
 
     }
+    
 
     section#gallery .container .slider .slides:nth-child(3) {
         left: 0;
@@ -799,4 +817,113 @@ footer span {
     section#gallery .container .slider .slides:nth-child(6) {
         left: 360px;
     } 
+
+    .tim {
+        display: block;
+    }
+
+    .tim .container {
+        width: 60%;
+    }
+
+    .blog .area .text article h4{
+        margin-bottom: 25px;
+    }
+
+    
+}
+
+@media screen and (max-width: 400px) {
+    .layar-penuh {
+        width: 100%;
+        overflow: hidden; /* Agar tidak ada konten yang terpotong */
+    }
+    
+    header .intro h3 {
+        font-size: 30px;
+        margin-bottom: 15px;
+        line-height: 0.9; /* Jarak antar baris agar lebih teratur */
+    }
+
+    section#gallery .container {
+        height: 500px;
+    }
+
+    section#gallery .container .slider .slides {
+        width: 70px;
+        height: 70px;
+        bottom: -120px;
+        top: initial;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    section#gallery .container .slider .slides:nth-child(1),
+    section#gallery .container .slider .slides:nth-child(2){
+        top: initial;
+        bottom: 0px;
+
+    }
+    
+
+    section#gallery .container .slider .slides:nth-child(3) {
+        left: 0;
+    } 
+    section#gallery .container .slider .slides:nth-child(4) {
+        left: 80px;
+    } 
+    section#gallery .container .slider .slides:nth-child(5) {
+        left: 160px;
+    }
+    section#gallery .container .slider .slides:nth-child(6) {
+        left: 320px;
+    } 
+
+     .content {
+        margin: auto; /* Untuk pemusatan horizontal */
+    }
+
+    .content h2 {
+        font-size: 20px !important;
+    }
+
+    .tim {
+        display: block;
+    }
+
+    .tim .container {
+        width: 100%;
+    }
+
+    .blog .area .text article{
+        padding: 20px;
+    }
+
+    .blog .area .text article h4{
+        margin-bottom: 20px;
+    }
+
+    .blog .area .text article p{
+        font-size: 13px;
+    }
+    
+    .button-container {
+        gap: 0.5rem;
+    }
+
+    .custom-button {
+        width: 135px
+    }
+    
+    .whatsapp {
+        font-size: 13px; /* WhatsApp green */
+    }
+
+    .tokopedia {
+        font-size: 13px; /* WhatsApp green */
+    }
+
+    .show-more-child {
+        width: auto
+    }
+
 }

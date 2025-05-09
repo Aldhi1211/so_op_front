@@ -100,6 +100,7 @@ const HomePage = () => {
         setMenuVisible(!isMenuVisible); // Toggle visibility state
     };
 
+
     // Fungsi untuk menangani toggle menu di perangkat mobile
     const handleMobileMenu = () => {
         const menu = menuRef.current;
@@ -270,7 +271,7 @@ const HomePage = () => {
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
+            setIsMobile(window.innerWidth <= 991.98);
         };
 
         window.addEventListener("resize", handleResize);
@@ -296,7 +297,7 @@ const HomePage = () => {
                     <div className="menu">
                         <a
                             ref={tombolMenuRef}
-                            href="#"
+                            href="javascript:void(0)"
                             className="tombol-menu"
                             onClick={handleClick}
                         >
@@ -309,13 +310,14 @@ const HomePage = () => {
                             style={{
                                 display: isMenuVisible ? "block" : "none", // Menyesuaikan tampilan menu
                             }}>
-                            <li> <a href="#home">Home</a></li>
-                            <li> <a href="#aboutus">About Us</a></li>
-                            <li> <a href="#support">Support</a></li>
-                            <li> <a href="#gallery">Gallery</a></li>
-                            <li> <a href="#team">Team</a></li>
-                            <li> <a href="#blog">Product</a></li>
-                            <li> <a href="#contact">Contact</a></li>
+                            <li><a href="#home" onClick={() => setMenuVisible(false)}>Home</a></li>
+                            <li><a href="#aboutus" onClick={() => setMenuVisible(false)}>About Us</a></li>
+                            <li><a href="#support" onClick={() => setMenuVisible(false)}>Support</a></li>
+                            <li><a href="#gallery" onClick={() => setMenuVisible(false)}>Gallery</a></li>
+                            <li><a href="#team" onClick={() => setMenuVisible(false)}>Team</a></li>
+                            <li><a href="#blog" onClick={() => setMenuVisible(false)}>Product</a></li>
+                            <li><a href="#contact" onClick={() => setMenuVisible(false)}>Contact</a></li>
+
 
                             {/* Login / User Dropdown */}
                             <li ref={dropdownRef}>
@@ -455,7 +457,7 @@ const HomePage = () => {
                             <div className='tim'>
                                 {Array.isArray(teams) && teams.map((team, index) => (
 
-                                    <div>
+                                    <div className='container'>
                                         <img src={team.foto} alt="" />
                                         <h6>{team.name}</h6>
                                         <p>{team.jabatan}</p>
@@ -494,7 +496,7 @@ const HomePage = () => {
                                         ></div>
                                         <div className="text">
                                             <article>
-                                                <h4><a href="#">{product.name}</a></h4>
+                                                <h4><a>{product.name}</a></h4>
                                                 <p>{product.description}</p>
 
                                                 <div className="specs" onClick={toggleAccordion}>
@@ -576,7 +578,7 @@ const HomePage = () => {
 
                             </div>
                             <div className="show-more">
-                                <a href="/homepage/product/" class="custom-button whatsapp">
+                                <a href="/homepage/product/" class="custom-button whatsapp show-more-child">
                                     SHOW MORE PRODUCT
                                     <i class="fa-solid fa-shop"></i>
                                 </a>
