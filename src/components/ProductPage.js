@@ -1,7 +1,6 @@
 import logoWhite from '../assets/iconpti.png';
 import logoBlack from '../assets/iconpti.png';
 import blogImage from '../assets/blog1.jpg'; // Impor gambar
-import videoIndonesia from '../assets/video-indonesia.mp4';
 import './HomePage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import React, { useRef, useEffect, useState } from "react";
 import API_BASE_URL from '../config/config';
+
+const videoIndonesia = "https://www.w3schools.com/html/mov_bbb.mp4"; // Ganti dengan URL video kamu
 
 
 const ProductPage = () => {

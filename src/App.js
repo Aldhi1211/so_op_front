@@ -19,15 +19,14 @@ import AddProduct from './components/AddProduct';
 import EditProduct from './components/EditProduct';
 import Gallery from './components/Gallery';
 import AddGallery from './components/AddGallery';
-import EditGallery from './components/EditGallery';
 import Barang from './components/Barang';
 import AddBarang from './components/AddBarang';
 import EditBarang from './components/EditBarang';
 import Teams from './components/Teams';
 import AddTeams from './components/AddTeams';
-import EditTeams from './components/EditTeams';
 import HomePage from './components/HomePage';
 import ProductPage from './components/ProductPage';
+import Messages from './components/Messages';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -67,6 +66,7 @@ function App() {
           <Route path="overview" element={<Overview />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="users" element={<UserList />} />
+          <Route path="messages" element={<Messages />} />
           <Route path="product" element={<Product />} />
           <Route path="teams" element={<Teams />} />
           <Route path="barang" element={<Barang />} />
@@ -74,8 +74,6 @@ function App() {
           <Route path="barang/add" element={<AddBarang />} />
           <Route path="gallery/add" element={<AddGallery />} />
           <Route path="barang/edit/:id" element={<EditBarang />} />
-          <Route path="teams/edit/:id" element={<EditTeams />} />
-          <Route path="gallery/edit/:id" element={<EditGallery />} />
           <Route path="product/add" element={<AddProduct />} />
           <Route path="product/edit/:id" element={<EditProduct />} />
           <Route path="/dashboard/users/add" element={<AddUser />} />

@@ -48,7 +48,7 @@
     resize: none;
   }
   
-  button[type="submit"], button[type="button"] {
+  .container button[type="submit"], .container button[type="button"] {
     padding: 10px 15px;
     background-color: #007BFF;
     color: white;
@@ -58,17 +58,17 @@
     font-size: 1rem;
     margin-top: 10px;
   }
-  
-  button[type="submit"]:hover, button[type="button"]:hover {
+
+  .container button[type="submit"]:hover, .container button[type="button"]:hover {
     background-color: #0056b3;
   }
-  
-  button[type="button"] {
+
+  .container button[type="button"] {
     background-color: #ff4d4d;
     margin-top: 5px;
   }
-  
-  button[type="button"]:hover {
+
+  .container button[type="button"]:hover {
     background-color: #cc0000;
   }
   
@@ -92,7 +92,7 @@
     margin-right: 10px;
   }
   
-  button[type="button"]:first-child {
+  .container button[type="button"]:first-child {
     margin-left: 10px;
   }
   

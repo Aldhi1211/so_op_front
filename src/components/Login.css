@@ -1,103 +1,258 @@
-/* Styling umum untuk form login & register */
-.login-box {
+/* ===== AUTH SHARED LAYOUT ===== */
+*, *::before, *::after { box-sizing: border-box; }
+
+.auth-page {
+    display: flex;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ---- Sidebar ---- */
+.auth-sidebar {
+    width: 42%;
+    background: linear-gradient(160deg, #4F46E5 0%, #7C3AED 100%);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.auth-sidebar-logo {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.auth-logo-img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.18);
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    background-color: white;
-    margin: auto;
+    padding: 5px;
 }
 
-/* Judul Form */
-.login-box .title {
-    font-weight: bold;
-    color: #2c3e50;
-    text-align: center;
-}
-
-/* Subjudul */
-.login-box .subtitle {
-    font-size: 0.9rem;
-    color: #7f8c8d;
-    text-align: center;
-}
-
-/* Styling untuk input fields */
-.login-box .input {
-    border-radius: 5px;
-    border: 1px solid #dfe6e9;
-    padding: 10px;
-    width: 100%;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Efek ketika input difokuskan */
-.login-box .input:focus {
-    border-color: #3498db;
-    box-shadow: 0px 0px 5px rgba(52, 152, 219, 0.5);
-}
-
-/* Styling untuk dropdown */
-.login-box .select select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #dfe6e9;
-    background-color: #fff;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-    appearance: none; /* Hilangkan default dropdown styling */
-}
-
-/* Efek ketika dropdown difokuskan */
-.login-box .select select:focus {
-    border-color: #3498db;
-    box-shadow: 0px 0px 5px rgba(52, 152, 219, 0.5);
-}
-
-/* Tambahkan icon panah ke dropdown */
-.login-box .select {
-    position: relative;
-}
-
-/* Container styling */
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    box-shadow: none !important
-}
-
-.login-box .select::after {
-    content: "▼";
-    font-size: 12px;
-    color: #7f8c8d;
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
-
-/* Tombol Register */
-.login-box .button {
-    border-radius: 5px;
-    background-color: #2ecc71;
-    color: white;
-    font-weight: bold;
-    padding: 12px;
-    width: 100%;
-    transition: background-color 0.3s ease-in-out;
-}
-
-/* Hover pada tombol */
-.login-box .button:hover {
-    background-color: #27ae60;
+.auth-sidebar-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.35;
     color: white;
 }
 
-/* Error message */
-.has-text-danger {
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-    color: red;
+.auth-sidebar-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+}
+
+.auth-sidebar-features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.auth-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.auth-feat-dot {
+    width: 7px;
+    height: 7px;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+/* ---- Form Area ---- */
+.auth-form-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    background: #fff;
+    overflow-y: auto;
+}
+
+.auth-form-inner {
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-form-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.3rem;
+    margin-top: 0;
+}
+
+.auth-form-subtitle {
+    font-size: 13px;
+    color: #6B7280;
+    margin-bottom: 2rem;
+}
+
+.auth-link {
+    color: #4F46E5;
+    font-weight: 600;
+    text-decoration: none;
+}
+.auth-link:hover { text-decoration: underline; }
+
+/* ---- Fields ---- */
+.auth-field {
+    margin-bottom: 1.1rem;
+}
+
+.auth-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.auth-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #F9FAFB;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 11px 14px;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.auth-input-row:focus-within {
+    border-color: #4F46E5;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.auth-input-icon {
+    font-size: 15px;
+    flex-shrink: 0;
+    opacity: 0.55;
+}
+
+.auth-input-row input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: #111827;
+    outline: none;
+    font-family: inherit;
+    min-width: 0;
+}
+
+.auth-input-row input::placeholder {
+    color: #9CA3AF;
+}
+
+.auth-input-toggle {
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0.5;
+    flex-shrink: 0;
+    user-select: none;
+    transition: opacity 0.15s;
+}
+.auth-input-toggle:hover { opacity: 1; }
+
+/* ---- Select ---- */
+.auth-input-row select {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: #111827;
+    outline: none;
+    font-family: inherit;
+    cursor: pointer;
+    appearance: none;
+}
+
+/* ---- Primary Button ---- */
+.auth-primary-btn {
+    width: 100%;
+    padding: 13px;
+    background: #4F46E5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    font-family: inherit;
+    margin-top: 0.75rem;
+    letter-spacing: 0.02em;
+}
+
+.auth-primary-btn:hover {
+    background: #4338CA;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+}
+
+.auth-primary-btn:active { transform: scale(0.99); }
+
+/* ---- Bottom switch link ---- */
+.auth-switch-link {
     text-align: center;
+    font-size: 13px;
+    color: #6B7280;
+    margin-top: 1.25rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .auth-page {
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .auth-sidebar {
+        width: 100%;
+        padding: 2rem 1.5rem 1.5rem;
+        min-height: auto;
+        height: auto;
+        position: static;
+    }
+
+    .auth-sidebar-title { font-size: 20px; }
+    .auth-sidebar-desc { font-size: 13px; margin-bottom: 0; }
+    .auth-sidebar-features { display: none; }
+
+    .auth-form-area {
+        padding: 2rem 1.25rem 3rem;
+        align-items: flex-start;
+    }
+
+    .auth-form-inner { max-width: 100%; }
+    .auth-form-title { font-size: 20px; }
+}
+
+@media (max-width: 480px) {
+    .auth-sidebar { padding: 1.5rem 1.25rem; }
+    .auth-sidebar-logo { font-size: 18px; }
+    .auth-sidebar-title { font-size: 18px; }
+    .auth-primary-btn { font-size: 14px; }
 }

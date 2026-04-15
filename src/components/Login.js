@@ -2,29 +2,27 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
-import './Login.css'; // Tambahkan file CSS terpisah
+import './Login.css';
 import API_BASE_URL from '../config/config';
+import logoWhite from '../assets/iconpti.png';
 
 const Login = ({ setIsAuthenticated }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [msg, setMsg] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const Auth = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post(`${API_BASE_URL}/login`, {
-                email: email,
-                password: password,
+                email,
+                password,
             });
-
-            // Ambil accessToken dari response
             const accessToken = response.data.accessToken;
             setIsAuthenticated(true);
             localStorage.setItem('isAuthenticated', 'true');
-            localStorage.setItem("accessToken", accessToken); // Simpan token dengan benar
-
+            localStorage.setItem("accessToken", accessToken);
             navigate('/');
         } catch (error) {
             if (error.response) {
@@ -33,61 +31,93 @@ const Login = ({ setIsAuthenticated }) => {
                     title: 'Gagal',
                     text: error.response.data.msg,
                     confirmButtonText: 'OK',
-                }).then(() => {
-                    navigate('/'); // Redirect setelah OK diklik
                 });
             }
         }
     };
 
     return (
-        <section className="hero has-background-grey-light is-fullheight">
-            <div className="hero-body">
-                <div className="container has-background-grey-light ">
-                    <div className="columns is-centered">
-                        <form onSubmit={Auth} className="box login-box">
-                            <div className="has-text-centered mb-4">
-                                <h1 className="title is-4 has-text-dark">Log In</h1>
-                            </div>
-                            <div className="field">
-                                <label className="label">Email</label>
-                                <div className="control">
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your email"
-                                        className="input"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="field">
-                                <label className="label">Password</label>
-                                <div className="control">
-                                    <input
-                                        type="password"
-                                        placeholder="Enter your password"
-                                        className="input"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="field mt-5">
-                                <button className="button is-success is-fullwidth">Login</button>
-                            </div>
-                            <div className="has-text-centered mt-4">
-                                <p className="is-size-7">
-                                    Don't have an account? <a href="/register" className="has-text-link">Sign up</a>
-                                </p>
-                            </div>
-                        </form>
+        <div className="auth-page">
+            {/* Sidebar */}
+            <div className="auth-sidebar">
+                <div className="auth-sidebar-logo">
+                    <img src={logoWhite} alt="PTI Logo" className="auth-logo-img" />
+                    PTI
+                </div>
+                <h2 className="auth-sidebar-title">Selamat datang kembali</h2>
+                <p className="auth-sidebar-desc">
+                    Masuk untuk mengakses dashboard dan semua fitur manajemen PT Pangan Terbaik Indonesia.
+                </p>
+                <div className="auth-sidebar-features">
+                    <div className="auth-feature-item">
+                        <span className="auth-feat-dot"></span> Kelola produk &amp; galeri
+                    </div>
+                    <div className="auth-feature-item">
+                        <span className="auth-feat-dot"></span> Dashboard real-time
+                    </div>
+                    <div className="auth-feature-item">
+                        <span className="auth-feat-dot"></span> Manajemen tim &amp; stok
                     </div>
                 </div>
             </div>
-        </section>
+
+            {/* Form area */}
+            <div className="auth-form-area">
+                <div className="auth-form-inner">
+                    <h3 className="auth-form-title">Masuk ke Akun</h3>
+                    <p className="auth-form-subtitle">
+                        Belum punya akun?{' '}
+                        <a href="/register" className="auth-link">Daftar gratis</a>
+                    </p>
+
+                    <form onSubmit={Auth}>
+                        <div className="auth-field">
+                            <label>Alamat Email</label>
+                            <div className="auth-input-row">
+                                <span className="auth-input-icon">✉</span>
+                                <input
+                                    type="email"
+                                    placeholder="contoh@email.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="auth-field">
+                            <label>Kata Sandi</label>
+                            <div className="auth-input-row">
+                                <span className="auth-input-icon">🔒</span>
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Masukkan kata sandi"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                                <span
+                                    className="auth-input-toggle"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    title={showPassword ? "Sembunyikan" : "Tampilkan"}
+                                >
+                                    {showPassword ? "🙈" : "👁"}
+                                </span>
+                            </div>
+                        </div>
+
+                        <button type="submit" className="auth-primary-btn">
+                            Masuk Sekarang
+                        </button>
+                    </form>
+
+                    <p className="auth-switch-link">
+                        Belum punya akun?{' '}
+                        <a href="/register" className="auth-link">Daftar di sini</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     );
 };
 

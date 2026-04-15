@@ -63,27 +63,20 @@ const IssuedStock = () => {
 
 
         try {
-            const response = await axios.post(`${API_BASE_URL}/issuedstock`, formData);
-
-            // Data untuk API kedua
-            const stockOutData = {
+            await axios.post(`${API_BASE_URL}/stockout`, {
                 id_barang: formData.id_barang,
                 quantity: formData.quantity,
                 satuan: formData.satuan,
                 tanggal_keluar: formattedDate,
-                submitted_by: submittedBy, // Nama pengguna yang login
-            };
-
-            // Panggil API kedua ke /stockin
-            const stockOutResponse = await axios.post(`${API_BASE_URL}/stockout`, stockOutData);
+                submitted_by: submittedBy,
+            }, { headers: { Authorization: `Bearer ${token}` } });
 
             setFormData({ id_barang: '', quantity: '', satuan: '' });
-            // Navigasi dengan pesan keberhasilan
             navigate('/dashboard/stock/overview', {
-                state: { successMessage: 'Stock berhasil dikurangi!' },
+                state: { successMessage: 'Stock keluar berhasil dicatat!' },
             });
         } catch (error) {
-            setErrorMessage('Gagal mengurangi stock. Periksa input Anda!');
+            setErrorMessage('Gagal mencatat stock keluar. Periksa input Anda!');
             console.error(error.message);
         }
     };
