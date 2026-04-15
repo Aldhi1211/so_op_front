@@ -82,7 +82,7 @@ const Messages = () => {
 
     const refreshToken = useCallback(async () => {
         try {
-            const res = await axios.get(`${API_BASE_URL}/token`);
+            const res = await axios.get(`${API_BASE_URL}/token`, { withCredentials: true });
             const decoded = jwtDecode(res.data.accessToken);
             setToken(res.data.accessToken);
             setExpire(decoded.exp);

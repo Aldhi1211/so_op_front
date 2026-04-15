@@ -128,7 +128,7 @@ const Gallery = () => {
 
     const refreshToken = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/token`);
+            const response = await axios.get(`${API_BASE_URL}/token`, { withCredentials: true });
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
             setName(decoded.name);
@@ -151,7 +151,7 @@ const Gallery = () => {
     axiosJWT.interceptors.request.use(async (config) => {
         const now = new Date();
         if (expire * 1000 < now.getTime()) {
-            const res = await axios.get(`${API_BASE_URL}/token`);
+            const res = await axios.get(`${API_BASE_URL}/token`, { withCredentials: true });
             config.headers.Authorization = `Bearer ${res.data.accessToken}`;
             setToken(res.data.accessToken);
             const decoded = jwtDecode(res.data.accessToken);

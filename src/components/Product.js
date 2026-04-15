@@ -21,7 +21,7 @@ const Product = () => {
 
     const refreshToken = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/token`);
+            const response = await axios.get(`${API_BASE_URL}/token`, { withCredentials: true });
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);
             setExpire(decoded.exp);
@@ -49,7 +49,7 @@ const Product = () => {
     axiosJWT.interceptors.request.use(async (config) => {
         const currentDate = new Date();
         if (expire * 1000 < currentDate.getTime()) {
-            const response = await axios.get(`${API_BASE_URL}/token`);
+            const response = await axios.get(`${API_BASE_URL}/token`, { withCredentials: true });
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
             setToken(response.data.accessToken);
             const decoded = jwtDecode(response.data.accessToken);

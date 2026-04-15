@@ -26,7 +26,7 @@ const AddTeams = () => {
     useEffect(() => {
         const getToken = async () => {
             try {
-                const response = await axios.get(`${API_BASE_URL}/token`);
+                const response = await axios.get(`${API_BASE_URL}/token`, { withCredentials: true });
                 setToken(response.data.accessToken);
             } catch (error) {
                 console.error('Gagal mendapatkan token:', error.message);

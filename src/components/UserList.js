@@ -72,7 +72,7 @@ const UserList = () => {
     /* ── Auth ── */
     const refreshToken = async () => {
         try {
-            const res = await axios.get(`${API_BASE_URL}/token`);
+            const res = await axios.get(`${API_BASE_URL}/token`, { withCredentials: true });
             setToken(res.data.accessToken);
             const decoded = jwtDecode(res.data.accessToken);
             setExpire(decoded.exp);
@@ -87,7 +87,7 @@ const UserList = () => {
     const axiosJWT = axios.create();
     axiosJWT.interceptors.request.use(async (config) => {
         if (expire * 1000 < new Date().getTime()) {
-            const res = await axios.get(`${API_BASE_URL}/token`);
+            const res = await axios.get(`${API_BASE_URL}/token`, { withCredentials: true });
             config.headers.Authorization = `Bearer ${res.data.accessToken}`;
             setToken(res.data.accessToken);
             setExpire(jwtDecode(res.data.accessToken).exp);

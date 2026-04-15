@@ -179,7 +179,7 @@ const StockIn = () => {
     /* ── auth ── */
     const refreshToken = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/token`);
+            const response = await axios.get(`${API_BASE_URL}/token`, { withCredentials: true });
             setToken(response.data.accessToken);
             setExpire(jwtDecode(response.data.accessToken).exp);
         } catch {
@@ -206,7 +206,7 @@ const StockIn = () => {
     axiosJWT.interceptors.request.use(async (config) => {
         const now = new Date();
         if (expire * 1000 < now.getTime()) {
-            const res = await axios.get(`${API_BASE_URL}/token`);
+            const res = await axios.get(`${API_BASE_URL}/token`, { withCredentials: true });
             config.headers.Authorization = `Bearer ${res.data.accessToken}`;
             setToken(res.data.accessToken);
             setExpire(jwtDecode(res.data.accessToken).exp);

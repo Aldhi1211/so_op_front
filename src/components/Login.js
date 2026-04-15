@@ -18,7 +18,7 @@ const Login = ({ setIsAuthenticated }) => {
             const response = await axios.post(`${API_BASE_URL}/login`, {
                 email,
                 password,
-            });
+            }, { withCredentials: true });
             const accessToken = response.data.accessToken;
             setIsAuthenticated(true);
             localStorage.setItem('isAuthenticated', 'true');
