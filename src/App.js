@@ -11,7 +11,6 @@ import Dashboard from './components/Dashboard';
 import Overview from './components/Overview';
 import StockOverview from './components/StockOverview';
 import AddStock from './components/AddStock';
-import StockIn from './components/StockIn';
 import StockOut from './components/StockOut';
 import IssuedStock from './components/IssuedStock';
 import Product from './components/Product';
@@ -27,6 +26,9 @@ import AddTeams from './components/AddTeams';
 import HomePage from './components/HomePage';
 import ProductPage from './components/ProductPage';
 import Messages from './components/Messages';
+import PurchaseOrder from './components/PurchaseOrder';
+import PenerimaanBarangPage from './components/PenerimaanBarangPage';
+import SupplierPage from './components/Supplier';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -67,6 +69,9 @@ function App() {
           <Route path="gallery" element={<Gallery />} />
           <Route path="users" element={<UserList />} />
           <Route path="messages" element={<Messages />} />
+          <Route path="purchase-order" element={<PurchaseOrder />} />
+          <Route path="penerimaan-barang" element={<PenerimaanBarangPage />} />
+          <Route path="supplier" element={<SupplierPage />} />
           <Route path="product" element={<Product />} />
           <Route path="teams" element={<Teams />} />
           <Route path="barang" element={<Barang />} />
@@ -81,7 +86,6 @@ function App() {
           <Route path="/dashboard/stock/overview" element={<StockOverview />} />
           <Route path="/dashboard/stock/overview/add" element={<AddStock />} />
           <Route path="/dashboard/stock/overview/out" element={<IssuedStock />} />
-          <Route path="/dashboard/stock/in" element={<StockIn />} />
           <Route path="/dashboard/stock/out" element={<StockOut />} />
 
         </Route>

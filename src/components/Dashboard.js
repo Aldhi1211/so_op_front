@@ -69,12 +69,24 @@ const Dashboard = ({ setIsAuthenticated }) => {
                     Barang
                 </Link>
 
-                <div className="ds-sb-section">Stok</div>
+                <div className="ds-sb-section">Pembelian</div>
 
-                <Link to="/dashboard/stock/in" className={`ds-nav-item${isActive('/dashboard/stock/in') ? ' active' : ''}`}>
-                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 2v9M4 7l4 4 4-4M3 13h10" /></svg>
-                    Stok Masuk
+                <Link to="/dashboard/supplier" className={`ds-nav-item${isActive('/dashboard/supplier') ? ' active' : ''}`}>
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 2h10a1 1 0 011 1v1H2V3a1 1 0 011-1zm-1 3h12v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5zm4 2v1h4V7H6zm0 2v1h6V9H6z"/></svg>
+                    Supplier
                 </Link>
+
+                <Link to="/dashboard/purchase-order" className={`ds-nav-item${isActive('/dashboard/purchase-order') ? ' active' : ''}`}>
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 2h10a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1zm1 2v8h8V4H4zm1 1h6v1H5zm0 2h4v1H5zm0 2h6v1H5z" /></svg>
+                    Purchase Order
+                </Link>
+
+                <Link to="/dashboard/penerimaan-barang" className={`ds-nav-item${isActive('/dashboard/penerimaan-barang') ? ' active' : ''}`}>
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 2v8m-4-4l4 4 4-4M3 13h10" /></svg>
+                    Penerimaan Barang
+                </Link>
+
+                <div className="ds-sb-section">Stok</div>
 
                 <Link to="/dashboard/stock/out" className={`ds-nav-item${isActive('/dashboard/stock/out') ? ' active' : ''}`}>
                     <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 14V5M4 9l4-4 4 4M3 3h10" /></svg>
