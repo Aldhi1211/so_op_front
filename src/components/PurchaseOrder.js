@@ -262,9 +262,11 @@ const PurchaseOrder = () => {
 
     const fetchBarang = useCallback(async () => {
         try {
-            const res = await axiosJWT.get(`${API_BASE_URL}/barang`);
-            setBarangList(Array.isArray(res.data) ? res.data : res.data.response || []);
-        } catch {}
+            const res = await axiosJWT.get(`${API_BASE_URL}/barang`, { params: { limit: 1000 } });
+            setBarangList(res.data.response || []);
+        } catch (err) {
+            console.error('Gagal fetch barang:', err);
+        }
     }, [axiosJWT]);
 
     useEffect(() => {
