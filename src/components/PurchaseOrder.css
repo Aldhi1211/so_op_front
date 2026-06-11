@@ -337,6 +337,9 @@
     max-height: calc(100vh - 200px);
     overflow-y: auto;
 }
+/* Jangan biarkan anak flex menyusut — scroll container (overflow auto)
+   punya min-height 0 sehingga bisa kolaps dan menyembunyikan tabel item */
+.po-mbody > * { flex-shrink: 0; }
 .po-mftr {
     display: flex;
     align-items: center;
