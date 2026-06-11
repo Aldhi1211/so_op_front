@@ -19,7 +19,6 @@ import EditProduct from './components/EditProduct';
 import Gallery from './components/Gallery';
 import AddGallery from './components/AddGallery';
 import Barang from './components/Barang';
-import AddBarang from './components/AddBarang';
 import EditBarang from './components/EditBarang';
 import Teams from './components/Teams';
 import AddTeams from './components/AddTeams';
@@ -76,7 +75,6 @@ function App() {
           <Route path="teams" element={<Teams />} />
           <Route path="barang" element={<Barang />} />
           <Route path="teams/add" element={<AddTeams />} />
-          <Route path="barang/add" element={<AddBarang />} />
           <Route path="gallery/add" element={<AddGallery />} />
           <Route path="barang/edit/:id" element={<EditBarang />} />
           <Route path="product/add" element={<AddProduct />} />
