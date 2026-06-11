@@ -375,7 +375,7 @@ const Product = () => {
                         <div className="ds-modal-header">
                             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                                 <div style={{ width: 30, height: 30, background: '#E1F5EE', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <svg viewBox="0 0 16 16" fill="#0F6E56" width="14" height="14"><path d="M8 2v12M2 8h12" /></svg>
+                                    <svg viewBox="0 0 16 16" fill="#0F6E56" width="15" height="15"><path d="M8 1l7 4v6l-7 4-7-4V5l7-4zm0 2L2.5 6 8 9.1 13.5 6 8 3zM2 7.1v3.4L7.5 13V9.6L2 7.1zm7.5 2.5V13L15 10.5V7.1L9.5 9.6z"/></svg>
                                 </div>
                                 <div>
                                     <div className="ds-modal-title">Tambah Produk Baru</div>
