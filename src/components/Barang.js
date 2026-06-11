@@ -19,6 +19,9 @@ const Barang = () => {
     const [pages, setPages] = useState(0);
     const [rows, setRows] = useState(0);
     const [keyword, setKeyword] = useState("");
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [addForm, setAddForm] = useState({ name: '' });
+    const [addLoading, setAddLoading] = useState(false);
 
     const refreshToken = async () => {
         try {
@@ -78,6 +81,22 @@ const Barang = () => {
             getBarang();
         } catch (error) {
             console.log(error);
+        }
+    };
+
+    const handleAddSubmit = async (e) => {
+        e.preventDefault();
+        setAddLoading(true);
+        try {
+            await axios.post(`${API_BASE_URL}/barang`, addForm);
+            setAddForm({ name: '' });
+            setShowAddModal(false);
+            setSuccessMessage('Barang berhasil ditambahkan!');
+            getBarang();
+        } catch (error) {
+            alert(error.response?.data?.message || 'Terjadi kesalahan saat menambahkan data.');
+        } finally {
+            setAddLoading(false);
         }
     };
 
@@ -185,12 +204,12 @@ const Barang = () => {
                                     onChange={(e) => { setQuery(e.target.value); setPage(0); setKeyword(e.target.value); }}
                                 />
                             </div>
-                            <Link to="add" className="ds-btn-pri" style={{ fontSize: 11, height: 30, padding: '0 11px' }}>
+                            <button onClick={() => setShowAddModal(true)} className="ds-btn-pri" style={{ fontSize: 11, height: 30, padding: '0 11px' }}>
                                 <svg viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" width="12" height="12">
                                     <path d="M8 2v12M2 8h12" />
                                 </svg>
                                 Tambah Barang
-                            </Link>
+                            </button>
                         </div>
                     </div>
 
@@ -286,6 +305,39 @@ const Barang = () => {
                     </div>
                 </div>
             </div>
+
+            {/* ── Add Barang Modal ── */}
+            {showAddModal && (
+                <div className="ds-modal-backdrop" onClick={() => setShowAddModal(false)}>
+                    <div className="ds-modal" onClick={(e) => e.stopPropagation()}>
+                        <div className="ds-modal-header">
+                            <span className="ds-modal-title">Tambah Barang</span>
+                            <button className="ds-modal-close" onClick={() => setShowAddModal(false)}>✕</button>
+                        </div>
+                        <form onSubmit={handleAddSubmit}>
+                            <div className="ds-modal-body">
+                                <div className="ds-fld">
+                                    <label>Nama Barang</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Masukkan nama barang…"
+                                        value={addForm.name}
+                                        onChange={(e) => setAddForm({ name: e.target.value })}
+                                        required
+                                        autoFocus
+                                    />
+                                </div>
+                            </div>
+                            <div className="ds-modal-footer">
+                                <button type="button" className="ds-btn-sec" onClick={() => setShowAddModal(false)}>Batal</button>
+                                <button type="submit" className="ds-btn-pri" disabled={addLoading}>
+                                    {addLoading ? 'Menyimpan…' : 'Simpan Barang'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </>
     );
 };
