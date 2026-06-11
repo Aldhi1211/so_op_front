@@ -37,13 +37,16 @@ function ModalCreatePO({ axiosJWT, suppliers, onClose, onSuccess }) {
     const [nomorPO, setNomor]     = useState('...');
     const [saving, setSaving]     = useState(false);
     const [barangList, setBarang] = useState([]);
+    const [loadingBarang, setLoadingBarang] = useState(true);
 
     useEffect(() => {
         axiosJWT.get(`${API_BASE_URL}/purchase-orders/next-nomor`)
             .then(r => setNomor(r.data.nomor_po)).catch(() => {});
-        axiosJWT.get(`${API_BASE_URL}/barang`, { params: { limit: 1000 } })
+
+        axios.get(`${API_BASE_URL}/barang`, { params: { limit: 1000 } })
             .then(r => setBarang(r.data.response || []))
-            .catch(err => console.error('Gagal fetch barang:', err));
+            .catch(err => console.error('Gagal fetch barang:', err))
+            .finally(() => setLoadingBarang(false));
     }, []);
 
     const addRow    = () => setRows(r => [...r, { id: Date.now(), id_barang: '', quantity: 1, satuan: 'Unit', harga_satuan: 0 }]);
@@ -173,8 +176,9 @@ function ModalCreatePO({ axiosJWT, suppliers, onClose, onSuccess }) {
                                     <tr key={r.id}>
                                         <td>
                                             <select className="po-item-sel" value={r.id_barang}
-                                                onChange={e => updateRow(r.id, 'id_barang', e.target.value)}>
-                                                <option value="">Pilih barang…</option>
+                                                onChange={e => updateRow(r.id, 'id_barang', e.target.value)}
+                                                disabled={loadingBarang}>
+                                                <option value="">{loadingBarang ? 'Memuat barang…' : barangList.length === 0 ? 'Tidak ada barang' : 'Pilih barang…'}</option>
                                                 {barangList.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
                                             </select>
                                         </td>
