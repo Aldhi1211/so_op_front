@@ -14,7 +14,6 @@ import AddStock from './components/AddStock';
 import StockOut from './components/StockOut';
 import IssuedStock from './components/IssuedStock';
 import Product from './components/Product';
-import AddProduct from './components/AddProduct';
 import EditProduct from './components/EditProduct';
 import Gallery from './components/Gallery';
 import AddGallery from './components/AddGallery';
@@ -77,7 +76,6 @@ function App() {
           <Route path="teams/add" element={<AddTeams />} />
           <Route path="gallery/add" element={<AddGallery />} />
           <Route path="barang/edit/:id" element={<EditBarang />} />
-          <Route path="product/add" element={<AddProduct />} />
           <Route path="product/edit/:id" element={<EditProduct />} />
           <Route path="/dashboard/users/add" element={<AddUser />} />
           <Route path="/dashboard/users/edit/:id" element={<EditUser />} />

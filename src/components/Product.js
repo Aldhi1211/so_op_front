@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from "axios";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import './Dashboard.css';
 import API_BASE_URL from '../config/config';
+
+const EMPTY_FORM = {
+    name: '', description: '', link_tokped: '', link_whatsapp: '',
+    images: null, spesifications: [''], customs: [''],
+};
 
 const Product = () => {
     const [products, setProduct] = useState([]);
@@ -18,6 +23,13 @@ const Product = () => {
     const [pages, setPages] = useState(0);
     const [rows, setRows] = useState(0);
     const [keyword, setKeyword] = useState("");
+
+    // ── Add modal state
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [addForm, setAddForm] = useState(EMPTY_FORM);
+    const [imgPreview, setImgPreview] = useState(null);
+    const [saving, setSaving] = useState(false);
+    const fileRef = useRef(null);
 
     const refreshToken = async () => {
         try {
@@ -82,6 +94,56 @@ const Product = () => {
         e.preventDefault();
         setPage(0);
         setKeyword(query);
+    };
+
+    // ── Add modal handlers
+    const openAdd = () => { setAddForm(EMPTY_FORM); setImgPreview(null); setShowAddModal(true); };
+    const closeAdd = () => { setShowAddModal(false); setImgPreview(null); };
+
+    const setField = (k, v) => setAddForm(f => ({ ...f, [k]: v }));
+
+    const handleFile = (file) => {
+        if (!file) return;
+        setField('images', file);
+        setImgPreview(URL.createObjectURL(file));
+    };
+
+    const addArrayItem  = (k) => setAddForm(f => ({ ...f, [k]: [...f[k], ''] }));
+    const removeArrayItem = (k, i) => setAddForm(f => ({ ...f, [k]: f[k].filter((_, idx) => idx !== i) }));
+    const updateArrayItem = (k, i, v) => setAddForm(f => {
+        const arr = [...f[k]]; arr[i] = v; return { ...f, [k]: arr };
+    });
+
+    const handleAddSubmit = async (e) => {
+        e.preventDefault();
+        setSaving(true);
+        try {
+            const data = new FormData();
+            data.append('name', addForm.name);
+            data.append('description', addForm.description);
+            data.append('link_tokped', addForm.link_tokped);
+            data.append('link_whatsapp', addForm.link_whatsapp);
+            if (addForm.images) data.append('images', addForm.images);
+
+            const res = await axios.post(`${API_BASE_URL}/product`, data, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            const idProduct = res.data.product.id;
+
+            const specData = addForm.spesifications.filter(s => s.trim()).map(s => ({ id_product: idProduct, spesification: s }));
+            if (specData.length) await axios.post(`${API_BASE_URL}/specs`, specData);
+
+            const customData = addForm.customs.filter(c => c.trim()).map(c => ({ id_product: idProduct, custom: c }));
+            if (customData.length) await axios.post(`${API_BASE_URL}/custom`, customData);
+
+            setSuccessMessage('Produk berhasil ditambahkan!');
+            closeAdd();
+            getProduct();
+        } catch (err) {
+            alert(err.response?.data?.message || 'Terjadi kesalahan saat menambahkan produk.');
+        } finally {
+            setSaving(false);
+        }
     };
 
     return (
@@ -177,12 +239,12 @@ const Product = () => {
                                     onChange={(e) => { setQuery(e.target.value); setPage(0); setKeyword(e.target.value); }}
                                 />
                             </div>
-                            <Link to="add" className="ds-btn-pri" style={{ fontSize: 11, height: 30, padding: '0 11px' }}>
+                            <button onClick={openAdd} className="ds-btn-pri" style={{ fontSize: 11, height: 30, padding: '0 11px' }}>
                                 <svg viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" width="12" height="12">
                                     <path d="M8 2v12M2 8h12" />
                                 </svg>
                                 Tambah Produk
-                            </Link>
+                            </button>
                         </div>
                     </div>
 
@@ -303,6 +365,146 @@ const Product = () => {
                     </div>
                 </div>
             </div>
+
+            {/* ── Add Product Modal ── */}
+            {showAddModal && (
+                <div className="ds-modal-backdrop" onClick={closeAdd}>
+                    <div className="ds-modal" style={{ width: 620 }} onClick={e => e.stopPropagation()}>
+
+                        {/* Header */}
+                        <div className="ds-modal-header">
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                <div style={{ width: 30, height: 30, background: '#E1F5EE', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <svg viewBox="0 0 16 16" fill="#0F6E56" width="14" height="14"><path d="M8 2v12M2 8h12" /></svg>
+                                </div>
+                                <div>
+                                    <div className="ds-modal-title">Tambah Produk Baru</div>
+                                    <div style={{ fontSize: 11, color: '#6B7280', marginTop: 1 }}>Isi informasi produk lengkap di bawah ini</div>
+                                </div>
+                            </div>
+                            <button className="ds-modal-close" onClick={closeAdd}>✕</button>
+                        </div>
+
+                        <form onSubmit={handleAddSubmit}>
+                            <div className="ds-modal-body" style={{ maxHeight: '65vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 18 }}>
+
+                                {/* Informasi Produk */}
+                                <div>
+                                    <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>Informasi Produk</div>
+                                    <div className="ds-form-grid">
+                                        <div className="ds-fld span2">
+                                            <label>Nama Produk</label>
+                                            <input type="text" placeholder="Masukkan nama produk…" value={addForm.name} onChange={e => setField('name', e.target.value)} required autoFocus />
+                                        </div>
+                                        <div className="ds-fld span2">
+                                            <label>Deskripsi</label>
+                                            <textarea placeholder="Deskripsi singkat produk…" rows={3} value={addForm.description} onChange={e => setField('description', e.target.value)} required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Links */}
+                                <div>
+                                    <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>Links</div>
+                                    <div className="ds-form-grid">
+                                        <div className="ds-fld">
+                                            <label>Link Tokopedia</label>
+                                            <input type="url" placeholder="https://tokopedia.com/…" value={addForm.link_tokped} onChange={e => setField('link_tokped', e.target.value)} />
+                                        </div>
+                                        <div className="ds-fld">
+                                            <label>Link WhatsApp</label>
+                                            <input type="url" placeholder="https://wa.me/…" value={addForm.link_whatsapp} onChange={e => setField('link_whatsapp', e.target.value)} />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Gambar */}
+                                <div>
+                                    <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>Gambar Produk</div>
+                                    <div
+                                        onClick={() => fileRef.current?.click()}
+                                        onDragOver={e => e.preventDefault()}
+                                        onDrop={e => { e.preventDefault(); handleFile(e.dataTransfer.files[0]); }}
+                                        style={{ border: '1.5px dashed #D1D5DB', borderRadius: 10, padding: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 14, background: '#FAFAFA', transition: 'border-color 0.15s' }}
+                                    >
+                                        {imgPreview
+                                            ? <img src={imgPreview} alt="preview" style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 8, border: '1px solid #E5E7EB', flexShrink: 0 }} />
+                                            : <div style={{ width: 64, height: 64, background: '#F3F4F6', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth={1.5} width="26" height="26"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                                              </div>
+                                        }
+                                        <div>
+                                            <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>{addForm.images ? addForm.images.name : 'Klik atau drag & drop gambar'}</div>
+                                            <div style={{ fontSize: 11, color: '#9CA3AF', marginTop: 2 }}>PNG, JPG, WEBP · maks. 5MB</div>
+                                            {imgPreview && <button type="button" onClick={e => { e.stopPropagation(); setField('images', null); setImgPreview(null); }} style={{ marginTop: 5, fontSize: 10, color: '#A32D2D', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>Hapus gambar</button>}
+                                        </div>
+                                    </div>
+                                    <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleFile(e.target.files[0])} />
+                                </div>
+
+                                {/* Spesifikasi */}
+                                <div>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                                        <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Spesifikasi</div>
+                                        <button type="button" onClick={() => addArrayItem('spesifications')} style={{ fontSize: 10, color: '#0F6E56', background: '#E1F5EE', border: 'none', borderRadius: 6, padding: '3px 9px', cursor: 'pointer', fontWeight: 600 }}>+ Tambah</button>
+                                    </div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+                                        {addForm.spesifications.map((s, i) => (
+                                            <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
+                                                <input
+                                                    className="ds-fld"
+                                                    style={{ flex: 1, fontSize: 13, padding: '7px 11px', border: '1px solid #E5E7EB', borderRadius: 8, background: '#F9FAFB', outline: 'none', fontFamily: 'inherit' }}
+                                                    placeholder={`Spesifikasi ${i + 1}…`}
+                                                    value={s}
+                                                    onChange={e => updateArrayItem('spesifications', i, e.target.value)}
+                                                />
+                                                {addForm.spesifications.length > 1 && (
+                                                    <button type="button" onClick={() => removeArrayItem('spesifications', i)} style={{ width: 26, height: 26, border: '1px solid #FCEBEB', background: '#FFF5F5', color: '#A32D2D', borderRadius: 7, cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>✕</button>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Custom */}
+                                <div>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                                        <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Custom</div>
+                                        <button type="button" onClick={() => addArrayItem('customs')} style={{ fontSize: 10, color: '#0F6E56', background: '#E1F5EE', border: 'none', borderRadius: 6, padding: '3px 9px', cursor: 'pointer', fontWeight: 600 }}>+ Tambah</button>
+                                    </div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+                                        {addForm.customs.map((c, i) => (
+                                            <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
+                                                <input
+                                                    style={{ flex: 1, fontSize: 13, padding: '7px 11px', border: '1px solid #E5E7EB', borderRadius: 8, background: '#F9FAFB', outline: 'none', fontFamily: 'inherit' }}
+                                                    placeholder={`Custom ${i + 1}…`}
+                                                    value={c}
+                                                    onChange={e => updateArrayItem('customs', i, e.target.value)}
+                                                />
+                                                {addForm.customs.length > 1 && (
+                                                    <button type="button" onClick={() => removeArrayItem('customs', i)} style={{ width: 26, height: 26, border: '1px solid #FCEBEB', background: '#FFF5F5', color: '#A32D2D', borderRadius: 7, cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>✕</button>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {/* Footer */}
+                            <div className="ds-modal-footer">
+                                <button type="button" className="ds-btn-sec" onClick={closeAdd} disabled={saving}>Batal</button>
+                                <button type="submit" className="ds-btn-pri" disabled={saving}>
+                                    {saving
+                                        ? <><svg viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" width="12" height="12" style={{ animation: 'spin 1s linear infinite' }}><path d="M8 2a6 6 0 110 12A6 6 0 018 2z" strokeOpacity={0.3}/><path d="M8 2a6 6 0 016 6"/></svg> Menyimpan…</>
+                                        : <><svg viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width="12" height="12"><path d="M2 8l4 4 8-8"/></svg> Simpan Produk</>
+                                    }
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </>
     );
 };
