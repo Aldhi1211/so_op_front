@@ -288,6 +288,16 @@ const PurchaseOrder = () => {
         if (token) fetchPO(chip);
     }, [chip]);
 
+    const handleStatus = async (id, status, msg) => {
+        if (!window.confirm(msg)) return;
+        try {
+            await axiosJWT.patch(`${API_BASE_URL}/purchase-orders/${id}`, { status });
+            fetchPO(chip);
+        } catch (err) {
+            alert(err.response?.data?.error || 'Gagal mengubah status PO.');
+        }
+    };
+
     const handleDelete = async (id) => {
         if (!window.confirm('Hapus PO ini?')) return;
         try {
@@ -433,10 +443,30 @@ const PurchaseOrder = () => {
                                             <td><StatusBadge st={r.status} /></td>
                                             <td>
                                                 <div className="po-act-row">
-                                                    <button className="po-act-btn po-act-del" title="Hapus"
-                                                        onClick={() => handleDelete(r.id)}>
-                                                        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 4h10l-1 10H4L3 4zm3-3h4v2H6V1zm-4 3h12" /></svg>
-                                                    </button>
+                                                    {r.status === 'draft' && (
+                                                        <button className="po-act-btn po-act-send" title="Kirim untuk Approval"
+                                                            onClick={() => handleStatus(r.id, 'waiting', `Kirim ${r.nomor_po} untuk approval?`)}>
+                                                            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1.7 1.5l13 6.5-13 6.5L4 8 1.7 1.5zM4.9 8.7l-1.3 3.6L11.9 8l-8.3-4.3 1.3 3.6H8v1.4H4.9z" /></svg>
+                                                        </button>
+                                                    )}
+                                                    {r.status === 'waiting' && (
+                                                        <>
+                                                            <button className="po-act-btn po-act-ok" title="Approve"
+                                                                onClick={() => handleStatus(r.id, 'approved', `Approve ${r.nomor_po}?`)}>
+                                                                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 12.5L2 8l1.4-1.4 3.1 3.1 6.1-6.1L14 5l-7.5 7.5z" /></svg>
+                                                            </button>
+                                                            <button className="po-act-btn po-act-no" title="Batalkan"
+                                                                onClick={() => handleStatus(r.id, 'cancel', `Batalkan ${r.nomor_po}?`)}>
+                                                                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.1 2.7L8 6.6l3.9-3.9 1.4 1.4L9.4 8l3.9 3.9-1.4 1.4L8 9.4l-3.9 3.9-1.4-1.4L6.6 8 2.7 4.1l1.4-1.4z" /></svg>
+                                                            </button>
+                                                        </>
+                                                    )}
+                                                    {(r.status === 'draft' || r.status === 'cancel') && (
+                                                        <button className="po-act-btn po-act-del" title="Hapus"
+                                                            onClick={() => handleDelete(r.id)}>
+                                                            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 4h10l-1 10H4L3 4zm3-3h4v2H6V1zm-4 3h12" /></svg>
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>

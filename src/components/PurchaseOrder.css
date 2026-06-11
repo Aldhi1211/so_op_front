@@ -239,6 +239,12 @@
 .po-act-btn svg { width: 11px; height: 11px; fill: #6B7280; }
 .po-act-del:hover { background: #FCEBEB !important; border-color: #F09595 !important; }
 .po-act-del:hover svg { fill: #A32D2D !important; }
+.po-act-send:hover { background: #E6F1FB !important; border-color: #8FBFE8 !important; }
+.po-act-send:hover svg { fill: #185FA5 !important; }
+.po-act-ok:hover { background: #E1F5EE !important; border-color: #7FCBB4 !important; }
+.po-act-ok:hover svg { fill: #0F6E56 !important; }
+.po-act-no:hover { background: #FCEBEB !important; border-color: #F09595 !important; }
+.po-act-no:hover svg { fill: #A32D2D !important; }
 
 /* ── Pagination bar ── */
 .po-pg-bar {
