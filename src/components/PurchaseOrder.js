@@ -27,19 +27,23 @@ function StatusBadge({ st }) {
 }
 
 // ── Modal: Buat PO ─────────────────────────────────────────────
-function ModalCreatePO({ axiosJWT, suppliers, barangList, onClose, onSuccess }) {
+function ModalCreatePO({ axiosJWT, suppliers, onClose, onSuccess }) {
     const [form, setForm] = useState({
         id_supplier: '', tanggal_po: new Date().toISOString().split('T')[0],
         tanggal_diharapkan: '', gudang_tujuan: 'Gudang Utama',
         metode_pembayaran: 'Transfer Bank', mata_uang: 'IDR', catatan: '',
     });
-    const [rows, setRows]     = useState([{ id: 1, id_barang: '', quantity: 1, satuan: 'Unit', harga_satuan: 0 }]);
-    const [nomorPO, setNomor] = useState('...');
-    const [saving, setSaving] = useState(false);
+    const [rows, setRows]         = useState([{ id: 1, id_barang: '', quantity: 1, satuan: 'Unit', harga_satuan: 0 }]);
+    const [nomorPO, setNomor]     = useState('...');
+    const [saving, setSaving]     = useState(false);
+    const [barangList, setBarang] = useState([]);
 
     useEffect(() => {
         axiosJWT.get(`${API_BASE_URL}/purchase-orders/next-nomor`)
             .then(r => setNomor(r.data.nomor_po)).catch(() => {});
+        axiosJWT.get(`${API_BASE_URL}/barang`, { params: { limit: 1000 } })
+            .then(r => setBarang(r.data.response || []))
+            .catch(err => console.error('Gagal fetch barang:', err));
     }, []);
 
     const addRow    = () => setRows(r => [...r, { id: Date.now(), id_barang: '', quantity: 1, satuan: 'Unit', harga_satuan: 0 }]);
@@ -147,8 +151,8 @@ function ModalCreatePO({ axiosJWT, suppliers, barangList, onClose, onSuccess }) 
 
                     <div className="po-items-hdr">
                         <div className="po-sec-lbl">Daftar Barang yang Dipesan</div>
-                        <button className="ds-btn-sec" style={{ fontSize: 11 }} onClick={addRow}>
-                            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 2v12M2 8h12" /></svg>
+                        <button className="ds-btn-pri" style={{ fontSize: 11, height: 30, padding: '0 11px' }} onClick={addRow}>
+                            <svg viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" width="12" height="12"><path d="M8 2v12M2 8h12" /></svg>
                             Tambah Barang
                         </button>
                     </div>
@@ -304,7 +308,7 @@ const PurchaseOrder = () => {
         <>
             {modal && (
                 <ModalCreatePO
-                    axiosJWT={axiosJWT} suppliers={suppliers} barangList={barangList}
+                    axiosJWT={axiosJWT} suppliers={suppliers}
                     onClose={() => setModal(false)}
                     onSuccess={() => fetchPO(chip)}
                 />
