@@ -141,7 +141,12 @@ const Supplier = () => {
                     value={search}
                     onChange={e => { setSearch(e.target.value); setPage(0); }}
                 />
-                <button className="po-btn-pri" onClick={openAdd}>+ Tambah Supplier</button>
+                <button className="ds-btn-pri" onClick={openAdd} style={{ fontSize: 11, height: 30, padding: '0 11px' }}>
+                    <svg viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" width="12" height="12">
+                        <path d="M8 2v12M2 8h12" />
+                    </svg>
+                    Tambah Supplier
+                </button>
             </div>
 
             <div style={{ padding: '20px 24px', flex: 1 }}>

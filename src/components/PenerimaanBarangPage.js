@@ -267,7 +267,7 @@ function ModalCatatPenerimaan({ axiosJWT, onClose, onSuccess }) {
                     <div style={{ display: 'flex', gap: 7 }}>
                         <button className="ds-btn-ghost" onClick={onClose} disabled={saving}>Batal</button>
                         <button className="ds-btn-pri" onClick={handleSubmit} disabled={saving || !selectedPO}>
-                            <svg viewBox="0 0 16 16" fill="white"><path d="M2 8l4 4 8-8" /></svg>
+                            <svg viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M2 8l4 4 8-8" /></svg>
                             {saving ? 'Menyimpan…' : 'Simpan & Update Stok'}
                         </button>
                     </div>
@@ -345,7 +345,7 @@ const PenerimaanBarangPage = () => {
                         Export
                     </button>
                     <button className="ds-btn-pri" onClick={() => setModal(true)}>
-                        <svg viewBox="0 0 16 16" fill="white"><path d="M8 2v12M2 8h12" /></svg>
+                        <svg viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M8 2v12M2 8h12" /></svg>
                         Catat Penerimaan
                     </button>
                 </div>
@@ -410,7 +410,7 @@ const PenerimaanBarangPage = () => {
                                 </div>
                             </div>
                             <button className="ds-btn-pri" style={{ fontSize: 11 }} onClick={() => setModal(true)}>
-                                <svg viewBox="0 0 16 16" fill="white"><path d="M8 2v12M2 8h12" /></svg>
+                                <svg viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M8 2v12M2 8h12" /></svg>
                                 Catat Penerimaan
                             </button>
                         </div>
