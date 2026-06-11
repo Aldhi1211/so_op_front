@@ -64,6 +64,8 @@ const Dashboard = ({ setIsAuthenticated }) => {
                     Teams
                 </Link>
 
+                <div className="ds-sb-section">Masterdata</div>
+
                 <Link to="/dashboard/barang" className={`ds-nav-item${isActive('/dashboard/barang') ? ' active' : ''}`}>
                     <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l7 4v6l-7 4-7-4V5l7-4zm0 2L2.5 6 8 9.1 13.5 6 8 3zM2 7.1v3.4L7.5 13V9.6L2 7.1zm7.5 2.5V13L15 10.5V7.1L9.5 9.6z" /></svg>
                     Barang
