@@ -390,37 +390,64 @@ const Product = () => {
 
                                 {/* Informasi Produk */}
                                 <div>
-                                    <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>Informasi Produk</div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 10 }}>
+                                        <div style={{ width: 18, height: 18, background: '#E1F5EE', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <svg viewBox="0 0 16 16" fill="#0F6E56" width="10" height="10"><path d="M3 2h10a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1zm1 2v8h8V4H4zm1 1h6v1H5zm0 2h6v1H5zm0 2h4v1H5z"/></svg>
+                                        </div>
+                                        <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Informasi Produk</div>
+                                    </div>
                                     <div className="ds-form-grid">
                                         <div className="ds-fld span2">
                                             <label>Nama Produk</label>
-                                            <input type="text" placeholder="Masukkan nama produk…" value={addForm.name} onChange={e => setField('name', e.target.value)} required autoFocus />
+                                            <div style={{ position: 'relative' }}>
+                                                <svg style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} viewBox="0 0 16 16" fill="#9CA3AF" width="13" height="13"><path d="M8 1l7 4v6l-7 4-7-4V5l7-4zm0 2L2.5 6 8 9.1 13.5 6 8 3zM2 7.1v3.4L7.5 13V9.6L2 7.1zm7.5 2.5V13L15 10.5V7.1L9.5 9.6z"/></svg>
+                                                <input type="text" placeholder="Masukkan nama produk…" style={{ paddingLeft: 30 }} value={addForm.name} onChange={e => setField('name', e.target.value)} required autoFocus />
+                                            </div>
                                         </div>
                                         <div className="ds-fld span2">
                                             <label>Deskripsi</label>
-                                            <textarea placeholder="Deskripsi singkat produk…" rows={3} value={addForm.description} onChange={e => setField('description', e.target.value)} required />
+                                            <div style={{ position: 'relative' }}>
+                                                <svg style={{ position: 'absolute', left: 10, top: 9, pointerEvents: 'none' }} viewBox="0 0 16 16" fill="#9CA3AF" width="13" height="13"><path d="M2 3h12v2H2zm0 4h12v2H2zm0 4h8v2H2z"/></svg>
+                                                <textarea placeholder="Deskripsi singkat produk…" rows={3} style={{ paddingLeft: 30 }} value={addForm.description} onChange={e => setField('description', e.target.value)} required />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Links */}
                                 <div>
-                                    <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>Links</div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 10 }}>
+                                        <div style={{ width: 18, height: 18, background: '#E6F1FB', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <svg viewBox="0 0 16 16" fill="#185FA5" width="10" height="10"><path d="M6 3a1 1 0 000 2h.586l-4.293 4.293a1 1 0 101.414 1.414L8 6.414V7a1 1 0 102 0V4a1 1 0 00-1-1H6z"/><path d="M3 9a1 1 0 00-1 1v3a1 1 0 001 1h10a1 1 0 001-1v-3a1 1 0 10-2 0v2H4v-2a1 1 0 00-1-1z"/></svg>
+                                        </div>
+                                        <div style={{ fontSize: 11, fontWeight: 700, color: '#185FA5', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Links</div>
+                                    </div>
                                     <div className="ds-form-grid">
                                         <div className="ds-fld">
                                             <label>Link Tokopedia</label>
-                                            <input type="url" placeholder="https://tokopedia.com/…" value={addForm.link_tokped} onChange={e => setField('link_tokped', e.target.value)} />
+                                            <div style={{ position: 'relative' }}>
+                                                <svg style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} viewBox="0 0 16 16" fill="#00AA5B" width="13" height="13"><path d="M2 2h12v1L8 8 2 3V2zm0 2.5l6 4.5 6-4.5V13H2V4.5z"/></svg>
+                                                <input type="url" placeholder="https://tokopedia.com/…" style={{ paddingLeft: 30 }} value={addForm.link_tokped} onChange={e => setField('link_tokped', e.target.value)} />
+                                            </div>
                                         </div>
                                         <div className="ds-fld">
                                             <label>Link WhatsApp</label>
-                                            <input type="url" placeholder="https://wa.me/…" value={addForm.link_whatsapp} onChange={e => setField('link_whatsapp', e.target.value)} />
+                                            <div style={{ position: 'relative' }}>
+                                                <svg style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} viewBox="0 0 16 16" fill="#25D366" width="13" height="13"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zM5.5 9.5c1 1.5 3 2.5 3 2.5l1-1s.5 0 1.5 1c.5.5.5 1 0 1.5-.5.5-1.5 1-2.5.5S4 11 3.5 9.5c-.5-1.5 0-3 .5-3.5.5-.5 1-.5 1.5 0 1 1 1 1.5 1 1.5L6 8.5s-.5 0 .5 1-.5 0-.5 0z"/></svg>
+                                                <input type="url" placeholder="https://wa.me/…" style={{ paddingLeft: 30 }} value={addForm.link_whatsapp} onChange={e => setField('link_whatsapp', e.target.value)} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Gambar */}
                                 <div>
-                                    <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>Gambar Produk</div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 10 }}>
+                                        <div style={{ width: 18, height: 18, background: '#FAEEDA', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <svg viewBox="0 0 16 16" fill="none" stroke="#854F0B" strokeWidth="1.5" width="10" height="10"><rect x="1" y="1" width="14" height="14" rx="2"/><circle cx="5" cy="5" r="1.2"/><path d="M1 11l4-4 3 3 2-2 5 5"/></svg>
+                                        </div>
+                                        <div style={{ fontSize: 11, fontWeight: 700, color: '#854F0B', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Gambar Produk</div>
+                                    </div>
                                     <div
                                         onClick={() => fileRef.current?.click()}
                                         onDragOver={e => e.preventDefault()}
@@ -445,19 +472,29 @@ const Product = () => {
                                 {/* Spesifikasi */}
                                 <div>
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                                        <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Spesifikasi</div>
-                                        <button type="button" onClick={() => addArrayItem('spesifications')} style={{ fontSize: 10, color: '#0F6E56', background: '#E1F5EE', border: 'none', borderRadius: 6, padding: '3px 9px', cursor: 'pointer', fontWeight: 600 }}>+ Tambah</button>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                                            <div style={{ width: 18, height: 18, background: '#EEF2FF', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <svg viewBox="0 0 16 16" fill="#3C3489" width="10" height="10"><path d="M2 3h12v2H2zm0 4h12v2H2zm0 4h8v2H2z"/></svg>
+                                            </div>
+                                            <div style={{ fontSize: 11, fontWeight: 700, color: '#3C3489', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Spesifikasi</div>
+                                        </div>
+                                        <button type="button" onClick={() => addArrayItem('spesifications')} style={{ fontSize: 10, color: '#0F6E56', background: '#E1F5EE', border: 'none', borderRadius: 6, padding: '3px 9px', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 3 }}>
+                                            <svg viewBox="0 0 16 16" fill="none" stroke="#0F6E56" strokeWidth={2} strokeLinecap="round" width="9" height="9"><path d="M8 2v12M2 8h12"/></svg>
+                                            Tambah
+                                        </button>
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
                                         {addForm.spesifications.map((s, i) => (
                                             <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
-                                                <input
-                                                    className="ds-fld"
-                                                    style={{ flex: 1, fontSize: 13, padding: '7px 11px', border: '1px solid #E5E7EB', borderRadius: 8, background: '#F9FAFB', outline: 'none', fontFamily: 'inherit' }}
-                                                    placeholder={`Spesifikasi ${i + 1}…`}
-                                                    value={s}
-                                                    onChange={e => updateArrayItem('spesifications', i, e.target.value)}
-                                                />
+                                                <div style={{ position: 'relative', flex: 1 }}>
+                                                    <svg style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} viewBox="0 0 16 16" fill="#9CA3AF" width="11" height="11"><circle cx="3" cy="8" r="1.5"/><path d="M6 8h8" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                                                    <input
+                                                        style={{ width: '100%', fontSize: 13, padding: '7px 11px 7px 26px', border: '1px solid #E5E7EB', borderRadius: 8, background: '#F9FAFB', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
+                                                        placeholder={`Spesifikasi ${i + 1}…`}
+                                                        value={s}
+                                                        onChange={e => updateArrayItem('spesifications', i, e.target.value)}
+                                                    />
+                                                </div>
                                                 {addForm.spesifications.length > 1 && (
                                                     <button type="button" onClick={() => removeArrayItem('spesifications', i)} style={{ width: 26, height: 26, border: '1px solid #FCEBEB', background: '#FFF5F5', color: '#A32D2D', borderRadius: 7, cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>✕</button>
                                                 )}
@@ -469,18 +506,29 @@ const Product = () => {
                                 {/* Custom */}
                                 <div>
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                                        <div style={{ fontSize: 11, fontWeight: 700, color: '#0F6E56', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Custom</div>
-                                        <button type="button" onClick={() => addArrayItem('customs')} style={{ fontSize: 10, color: '#0F6E56', background: '#E1F5EE', border: 'none', borderRadius: 6, padding: '3px 9px', cursor: 'pointer', fontWeight: 600 }}>+ Tambah</button>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                                            <div style={{ width: 18, height: 18, background: '#FAECE7', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <svg viewBox="0 0 16 16" fill="#993C1D" width="10" height="10"><path d="M2 2h5l1 1h6v10H2V2zm4 5v4m2-4v4"/></svg>
+                                            </div>
+                                            <div style={{ fontSize: 11, fontWeight: 700, color: '#993C1D', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Custom</div>
+                                        </div>
+                                        <button type="button" onClick={() => addArrayItem('customs')} style={{ fontSize: 10, color: '#0F6E56', background: '#E1F5EE', border: 'none', borderRadius: 6, padding: '3px 9px', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 3 }}>
+                                            <svg viewBox="0 0 16 16" fill="none" stroke="#0F6E56" strokeWidth={2} strokeLinecap="round" width="9" height="9"><path d="M8 2v12M2 8h12"/></svg>
+                                            Tambah
+                                        </button>
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
                                         {addForm.customs.map((c, i) => (
                                             <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
-                                                <input
-                                                    style={{ flex: 1, fontSize: 13, padding: '7px 11px', border: '1px solid #E5E7EB', borderRadius: 8, background: '#F9FAFB', outline: 'none', fontFamily: 'inherit' }}
-                                                    placeholder={`Custom ${i + 1}…`}
-                                                    value={c}
-                                                    onChange={e => updateArrayItem('customs', i, e.target.value)}
-                                                />
+                                                <div style={{ position: 'relative', flex: 1 }}>
+                                                    <svg style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} viewBox="0 0 16 16" fill="#9CA3AF" width="11" height="11"><path d="M2 2h5l1 1h6v10H2V2z"/></svg>
+                                                    <input
+                                                        style={{ width: '100%', fontSize: 13, padding: '7px 11px 7px 26px', border: '1px solid #E5E7EB', borderRadius: 8, background: '#F9FAFB', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
+                                                        placeholder={`Custom ${i + 1}…`}
+                                                        value={c}
+                                                        onChange={e => updateArrayItem('customs', i, e.target.value)}
+                                                    />
+                                                </div>
                                                 {addForm.customs.length > 1 && (
                                                     <button type="button" onClick={() => removeArrayItem('customs', i)} style={{ width: 26, height: 26, border: '1px solid #FCEBEB', background: '#FFF5F5', color: '#A32D2D', borderRadius: 7, cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>✕</button>
                                                 )}
